@@ -1,0 +1,204 @@
+<?php
+
+/**
+ * Phormula
+ *
+ * Phormula is an object oriented approach to creating, nesting, 
+ * modifying, deleting, and validating form field elements in the DOM.
+ *
+ * @package    Phormula
+ * @version    1.0 rc1
+ * @author     Johnny Freeman
+ * @license    http://www.opensource.org/licenses/mit-license.php
+ * @copyright  2011 Johnny Freeman
+ * @link       http://code.johnnyfreeman.us/phormula
+ */
+
+namespace Phormula;
+
+/**
+ * Field class
+ **/
+abstract class Field extends Element
+{
+	/**
+	 * Field construct
+	 *
+	 * @access	public
+	 * @return	object
+	 **/
+	public function __construct()
+	{
+		if (!empty($_POST) && isset($_POST[$this->get_attribute('name')]))
+		{
+			$this->set_value($_POST[$this->get_attribute('name')]);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * ================================================
+	 * Methods for working with ValidationRule objects
+	 * ================================================
+	 **/
+	
+	/**
+	 * Array of ValidationRule Objects
+	 *
+	 * @var string
+	 **/
+	protected $_validation_rules = array();
+	
+	/**
+	 * Returns an array of all registered ValidationRule objects
+	 * 
+	 * @access	public
+	 * @return	array
+	 */
+	public function get_rules()
+	{
+		return $this->_validation_rules;
+	}
+	
+	/**
+	 * Registers a ValidationRule object
+	 * 
+	 * @access	public
+	 * @param	object
+	 * @return	bool
+	 */
+	public function set_rule($rule)
+	{
+		array_push($this->_validation_rules, $rule);
+		
+		return $this;
+	}
+
+	/**
+	 * To be written.
+	 *
+	 * @param	string	Rule name
+	 * @param	mixed	Callback
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function add_rule($rule, $param1 = NULL, $param2 = NULL)
+	{
+		// seperate parts by underscore
+		$rule_parts = explode('_', $rule);
+
+		// lowercase all and then capitalize the first charactor
+		$rule_parts = array_map(
+			function($part){
+				return ucfirst(strtolower($part));
+			}, 
+			$rule_parts
+		);
+
+		$rule = implode('', $rule_parts);
+
+		if (class_exists('Phormula\\ValidationRules\\' . $rule, TRUE))
+		{
+			$rule = 'Phormula\\ValidationRules\\' . $rule;
+			
+			// instantiate new rule with params
+			$rule = new $rule($param1, $param2);
+
+			// encapsulate the field inside 
+			// the rule for easy access
+			$rule->set_field($this);
+
+			// save this rule to this field
+			$this->set_rule($rule);
+		}
+		
+		return $this;
+	}
+
+	/**
+	 * Array of ValidationError objects 
+	 * pertaining to this field only
+	 *
+	 * @var string
+	 **/
+	protected $_validation_errors = array();
+	
+	/**
+	 * Set ValidationError for this field
+	 *
+	 * @param	mixed	ValidationError as object or string
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function set_error($error)
+	{
+		if (is_string($error))
+		{
+			array_push($this->_validation_errors, new ValidationError($error));
+		}
+		if (is_object($error))
+		{
+			array_push($this->_validation_errors, $error);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Get ValidationErrors for this field
+	 *
+	 * @return	array	Returns an array of ValidationError objects
+	 **/
+	public function get_errors()
+	{
+		return $this->_validation_errors;
+	}
+	
+	/**
+	 * Get first ValidationError for this field
+	 *
+	 * @return	object	Returns an array of ValidationError objects
+	 **/
+	public function get_error()
+	{
+		return isset($this->_validation_errors[0]) ? $this->_validation_errors[0] : NULL;
+	}
+
+	/**
+	 * Check if this field has any errors
+	 *
+	 * @return	array	Returns an array of ValidationError objects
+	 **/
+	public function has_errors()
+	{
+		return count($this->_validation_errors) > 0 ? TRUE : FALSE;
+	}
+
+
+	/**
+	 * ===========================================
+	 * Methods for getting / setting field values
+	 * ===========================================
+	 **/
+
+	/**
+	 * Set field value
+	 *
+	 * @param	string	Value to be set
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function set_value($value)
+	{
+		return $this->set_attribute('value', $value);
+	}
+	
+	/**
+	 * Get field value
+	 *
+	 * @param	string	Value to be set
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function get_value()
+	{
+		return $this->get_attribute('value');
+	}
+}
