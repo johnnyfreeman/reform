@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require_once('phormula/phormula.php');
+require_once('reform/reform.php');
 
 $form = new Form('');
 
@@ -21,3 +21,5 @@ if (!empty($_POST))
 }
 
 echo $form;
+
+echo "<pre>"; print_r($form); echo "<pre>"; die();

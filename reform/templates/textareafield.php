@@ -10,14 +10,14 @@ $value = $this->get_value();
 	<br />
 
 	<textarea id="<?php echo $id; ?>" name="<?php echo $name; ?>"><?php echo $value; ?></textarea>
-	
+
 	<?php if ($this->has_errors()): ?>
 	
 		<ul class="errors">
 
 			<?php foreach ($this->get_errors() as $error): ?>
 				<li><?php echo $error; ?></li>
-			<?php endforeach ?>
+			<?php endforeach; ?>
 
 		</ul>
 

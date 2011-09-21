@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Phormula
+ * re:form
  *
- * Phormula is an object oriented approach to creating, nesting, 
- * modifying, deleting, and validating form field elements in the DOM.
+ * re:form is an object oriented approach to creating, nesting, 
+ * modifying, deleting, and validating forms in the DOM.
  *
- * @package    Phormula
+ * @package    re:form
  * @version    1.0 rc1
  * @author     Johnny Freeman
  * @license    http://www.opensource.org/licenses/mit-license.php
- * @copyright  2011 Johnny Freeman
- * @link       http://code.johnnyfreeman.us/phormula
+ * @copyright  2011 Johnny Freeman All right reserved.
+ * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Phormula;
+namespace Reform;
 
 /**
  * Field class
@@ -97,9 +97,9 @@ abstract class Field extends Element
 
 		$rule = implode('', $rule_parts);
 
-		if (class_exists('Phormula\\ValidationRules\\' . $rule, TRUE))
+		if (class_exists('Reform\\ValidationRules\\' . $rule, TRUE))
 		{
-			$rule = 'Phormula\\ValidationRules\\' . $rule;
+			$rule = 'Reform\\ValidationRules\\' . $rule;
 			
 			// instantiate new rule with params
 			$rule = new $rule($param1, $param2);

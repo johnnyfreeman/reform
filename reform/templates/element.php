@@ -21,7 +21,7 @@ else
 	$output .= '>';
 
 	// print any child element this tag may have
-	foreach ($this->get_child_elements() as $element)
+	foreach ($this->get_children() as $element)
 	{
 		$output .= $element;
 	}

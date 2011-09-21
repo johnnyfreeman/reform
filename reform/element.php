@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Phormula
+ * re:form
  *
- * Phormula is an object oriented approach to creating, nesting, 
- * modifying, deleting, and validating form field elements in the DOM.
+ * re:form is an object oriented approach to creating, nesting, 
+ * modifying, deleting, and validating forms in the DOM.
  *
- * @package    Phormula
+ * @package    re:form
  * @version    1.0 rc1
  * @author     Johnny Freeman
  * @license    http://www.opensource.org/licenses/mit-license.php
- * @copyright  2011 Johnny Freeman
- * @link       http://code.johnnyfreeman.us/phormula
+ * @copyright  2011 Johnny Freeman All right reserved.
+ * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Phormula;
+namespace Reform;
 
 /**
  * Element class
@@ -245,7 +245,7 @@ abstract class Element {
 	 *
 	 * @return	array	Array of elements (object) and text nodes (string)
 	 **/
-	public function get_child_elements()
+	public function get_children()
 	{
 		return $this->_child_elements;
 	}
@@ -257,7 +257,7 @@ abstract class Element {
 	 * @param	string	Whether to position the new child before or after existing children
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_child_element($element, $position = 'bottom')
+	public function set_child($element, $position = 'bottom')
 	{
 		// you can't nest anything inside self closing elements
 		if ($this->_self_closing_tag)
@@ -279,7 +279,7 @@ abstract class Element {
 		// current object as its parent
 		if ($element instanceof Element)
 		{
-			$element->set_parent_element($this);
+			$element->set_parent($this);
 		}
 		
 		return $this;
@@ -290,7 +290,7 @@ abstract class Element {
 	 *
 	 * @return	bool
 	 **/
-	public function has_child_elements()
+	public function has_children()
 	{
 		return count($this->_child_elements) > 0;
 	}
@@ -311,7 +311,7 @@ abstract class Element {
 		$elements = array_reverse($elements, TRUE);
 
 		foreach ($elements as $element) {
-			$this->set_child_element($element);
+			$this->set_child($element);
 		}
 		
 		return $this;
@@ -325,7 +325,7 @@ abstract class Element {
 	 **/
 	public function append_to($element)
 	{
-		$element->set_child_element($this);
+		$element->set_child($this);
 
 		return $this;
 	}
@@ -346,7 +346,7 @@ abstract class Element {
 		$elements = array_reverse($elements, TRUE);
 
 		foreach ($elements as $element) {
-			$this->set_child_element($element, 'top');
+			$this->set_child($element, 'top');
 		}
 		
 		return $this;
@@ -360,7 +360,7 @@ abstract class Element {
 	 **/
 	public function prepend_to($element)
 	{
-		$element->set_child_element($this, 'top');
+		$element->set_child($this, 'top');
 
 		return $this;
 	}
@@ -371,7 +371,7 @@ abstract class Element {
 	 * @param	object	Parent element
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_parent_element($element)
+	public function set_parent($element)
 	{
 		if (!is_object($element))
 		{
@@ -388,7 +388,7 @@ abstract class Element {
 	 *
 	 * @return	object	Returns the object to allow method chaining
 	 **/
-	public function get_parent_element()
+	public function get_parent()
 	{
 		return $this->_parent_element;
 	}
@@ -517,7 +517,7 @@ abstract class Element {
 
 		// strip namepaces
 		$class = substr($class, strrpos($class, "\\") + 1);
-		$template = PHORMULA_PATH . 'templates/' . strtolower($class) . '.php';
+		$template = REFORM_PATH . 'templates/' . strtolower($class) . '.php';
 
 		if (file_exists($template))
 		{
@@ -530,7 +530,7 @@ abstract class Element {
 		else
 		{
 			ob_start();
-			include(PHORMULA_PATH . 'templates/element.php');
+			include(REFORM_PATH . 'templates/element.php');
 			$buffer = ob_get_contents();
 			@ob_end_clean();
 			return $buffer;

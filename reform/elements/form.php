@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Phormula
+ * re:form
  *
- * Phormula is an object oriented approach to creating, nesting, 
- * modifying, deleting, and validating form field elements in the DOM.
+ * re:form is an object oriented approach to creating, nesting, 
+ * modifying, deleting, and validating forms in the DOM.
  *
- * @package    Phormula
+ * @package    re:form
  * @version    1.0 rc1
  * @author     Johnny Freeman
  * @license    http://www.opensource.org/licenses/mit-license.php
- * @copyright  2011 Johnny Freeman
- * @link       http://code.johnnyfreeman.us/phormula
+ * @copyright  2011 Johnny Freeman All right reserved.
+ * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Phormula\Elements;
+namespace Reform\Elements;
 
 /**
  * Form class
  **/
-class Form extends \Phormula\Element {
+class Form extends \Reform\Element {
 		
 	protected $_tag_name = 'form';
 	
@@ -62,33 +62,35 @@ class Form extends \Phormula\Element {
 	{
 		if (!empty($_POST))
 		{
-			// if no element is passed, get all children of this Form Field
-			is_null($elements) AND $elements = $this->get_child_elements();
+			// return;
+		}
+		
+		// if no element is passed, get all children of this Form Field
+		is_null($elements) AND $elements = $this->get_children();
 
-			// loopty loop
-			foreach ($elements as $element)
+		// loopty loop
+		foreach ($elements as $element)
+		{
+			// if this element is a subclass of the Field object,
+			// loop through it's rules and run each
+			if (is_a($element, 'Reform\\Field'))
 			{
-				// if this element is a subclass of the Field object,
-				// loop through it's rules and run each
-				if (is_a($element, 'Phormula\\Field'))
+				foreach ($element->get_rules() as $rule)
 				{
-					foreach ($element->get_rules() as $rule)
+					if (!$rule->validate())
 					{
-						if (!$rule->validate())
-						{
-							$element->set_error($rule->get_error_message());
+						$element->set_error($rule->get_error_message());
 
-							$this->_error_count++;
-						}
+						$this->_error_count++;
 					}
 				}
+			}
 
-				// if this element is NOT a subclass of the Field object and it has children,
-				// loop through this whole process with it's children
-				else if ($element->has_child_elements())
-				{
-					$this->validate($element);
-				}
+			// if this element is NOT a subclass of the Field object and it has children,
+			// loop through this whole process with it's children
+			else if ($element->has_children())
+			{
+				$this->validate($element);
 			}
 		}
 	}
