@@ -35,7 +35,7 @@ class MatchesField extends \Reform\ValidationRule
 	 **/
 	function __construct($matched_field)
 	{
-		$this->set_matched_value($matched_field->get_value());
+		$this->set_matched_value($matched_field);
 		
 		return $this;
 	}
@@ -48,11 +48,10 @@ class MatchesField extends \Reform\ValidationRule
 	public function run()
 	{
 		$field_value = $this->get_field()->get_value();
-		$matched_field_value = $this->get_matched_field()->get_value();
 
 		// validation passed if field value is either 
 		// empty or if it's equal to the matched field value
-		return empty($field_value) || $field_value == $matched_field_value;
+		return empty($field_value) || $field_value == $this->get_matched_value();
 	}
 
 	/**
@@ -66,7 +65,7 @@ class MatchesField extends \Reform\ValidationRule
 	 *
 	 * @var string
 	 **/
-	protected $_error_message = 'The %s field must be the same as the %s field.';
+	protected $_error_message = 'The %s field must be equal to the %s field.';
 	
 	/**
 	 * Gets the error message above and 
@@ -92,27 +91,32 @@ class MatchesField extends \Reform\ValidationRule
 	 *
 	 * @var string
 	 **/
-	protected $_matched_field;
+	protected $_matched_value;
 
 	/**
-	 * Gets the matched field object
+	 * Gets the matched field's value
 	 *
-	 * @param	string
+	 * @param	mixed
 	 * @return	string	_matched_field property
 	 **/
-	public function set_matched_field(Field $field)
+	public function set_matched_value($field)
 	{
-		$this->_matched_field = $field;
+		if (is_object($field))
+		{
+			$field = $field->get_attribute('name');
+		}
+
+		$this->_matched_value = isset($_POST[$field]) ? $_POST[$field] : NULL;
 		
 		return $this;
 	}
 	
 	/**
-	 * Sets the matched field
+	 * Sets the matched field's value
 	 *
 	 * @return	string	_matched_field property
 	 **/
-	public function get_matched_field()
+	public function get_matched_value()
 	{
 		return $this->_matched_field;
 	}

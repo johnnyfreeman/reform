@@ -17,42 +17,42 @@
 namespace Reform\Fields;
 
 /**
- * Element class
+ * Input class
  **/
-class SelectField extends \Reform\Field {
+class Input extends \Reform\Field {
 		
-	protected $_tag_name = 'select';
-	
+	protected $_tag_name = 'input';
 	
 	protected $_attributes = array(
-			'name' => ''
+			'name' => '',
+			'type' => 'text',
+			'value' => ''
 		);
 	
 	protected $_child_elements = array();
 	
 	protected $_parent_element;
 	
-	protected $_self_closing_tag = FALSE;
+	protected $_self_closing_tag = TRUE;
 	
-	public function __construct($name, $options = array(), $attributes = array())
+	public function __construct($name, $value = '', $attributes = array())
 	{
 		// attributes is a string
 		if (is_string($name))
 		{
 			$this->set_attribute('name', $name);
-			
-			foreach ($options as $value => $label)
-			{
-				$this->set_child_element(new OptionField($label, $value));
-			}
-			
+			$this->set_attribute('value', $value);
 			$this->set_attributes($attributes);
 		}
 		else if (is_array($name))
 		{
 			$this->set_attributes($name);
 		}
-		
-		return parent::__construct();
+
+		// overwrite default value with value from POST array
+		if (!empty($_POST) && isset($_POST[$this->get_attribute('name')]))
+		{
+			$this->set_value($_POST[$this->get_attribute('name')]);
+		}
 	}
 }

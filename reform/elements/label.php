@@ -35,7 +35,7 @@ class Label extends \Reform\Element {
 	{
 		if (!empty($text))
 		{
-			$this->set_child_element($text);
+			$this->set_child($text);
 		}
 		
 		return $this;

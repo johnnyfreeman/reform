@@ -14,12 +14,12 @@
  * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Reform\Fields\InputFields;
+namespace Reform\Fields\Inputs;
 
 /**
- * Element class
+ * Checkbox class
  **/
-class CheckboxField extends \Reform\Fields\InputField {
+class Checkbox extends \Reform\Fields\Input {
 	
 	protected $_attributes = array(
 			'name' => '',

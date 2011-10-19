@@ -14,12 +14,12 @@
  * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Reform\Fields\InputFields;
+namespace Reform\Fields\Inputs;
 
 /**
- * Element class
+ * Submit class
  **/
-class SubmitField extends \Reform\Fields\InputField {
+class Submit extends \Reform\Fields\Input {
 	
 	protected $_attributes = array(
 			'name' => '',
@@ -28,10 +28,4 @@ class SubmitField extends \Reform\Fields\InputField {
 		);
 	
 	protected $_child_elements = array();
-
-
-	public function __construct($value = '', $attributes = array())
-	{
-		return parent::__construct('', $value, $attributes);
-	}
 }

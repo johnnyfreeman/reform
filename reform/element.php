@@ -70,12 +70,14 @@ abstract class Element {
 		$p = func_get_args();
 		$count = func_num_args();
 
-		switch ($count) {
+		switch ($count)
+		{
 			case 1: return new static($p[0]);
 			case 2: return new static($p[0], $p[1]);
 			case 3: return new static($p[0], $p[1], $p[2]);
 			case 4: return new static($p[0], $p[1], $p[2], $p[3]);
 			case 5: return new static($p[0], $p[1], $p[2], $p[3], $p[4]);
+			default: return new static();
 		}
 	}
 	
@@ -113,7 +115,7 @@ abstract class Element {
 	}
 	
 	/**
-	 * Alias to getAttribute(). It allows you get
+	 * Alias to get_attribute(). It allows you get
 	 * an element's attributes as if it were a 
 	 * property of the element object, like so:
 	 * 
@@ -153,7 +155,7 @@ abstract class Element {
 	}
     
 	/**
-	 * Alias to setAttribute(). It allows you set
+	 * Alias to set_attribute(). It allows you set
 	 * an element's attributes as if it were a 
 	 * property of the element object, like so:
 	 * 
@@ -408,6 +410,149 @@ abstract class Element {
 	public function is_self_closing()
 	{
 		return $this->_self_closing_tag;
+	}
+
+	/**
+	 * =======================================================
+	 * Traversing
+	 * =======================================================
+	 **/
+	
+	/**
+	 * Find Ancester element
+	 *
+	 * @return	mixed	
+	 **/
+	public function find_ancestor($attr)
+	{
+		if (is_string($attr))
+		{
+			$attr = array('id'=>$attr);
+		}
+
+		$parent = $this->get_parent();
+		$parent_attr = $parent->get_attributes();
+
+		if (!is_object($parent) || empty($parent_attr))
+		{
+			return FALSE;
+		}
+
+		return $this->_array_in_array($attr, $parent_attr) ? $parent : $parent->find_ancestor($attr);
+	}
+	
+	/**
+	 * Find Parent element
+	 *
+	 * @return	mixed	
+	 **/
+	public function find_parent($attr)
+	{
+		if (is_string($attr))
+		{
+			$attr = array('id' => $attr);
+		}
+
+		$parent = $this->get_parent();
+		$parent_attr = $parent->get_attributes();
+
+		if (!is_object($parent) || empty($parent_attr) || !$this->_array_in_array($attr, $parent_attr))
+		{
+			return FALSE;
+		}
+
+		return $parent;
+	}
+	
+	/**
+	 * Find Child element
+	 *
+	 * @return	mixed	
+	 **/
+	public function find_child($attr)
+	{
+		if (is_string($attr))
+		{
+			$attr = array('id'=>$attr);
+		}
+
+		$children = $this->get_children();
+
+		foreach ($children as $child)
+		{
+			if (!is_object($child))
+			{
+				continue;
+			}
+
+			if ($this->_array_in_array($attr, $child->get_attributes()))
+			{
+				return $child;
+			}
+		}
+
+		return FALSE;
+	}
+	
+	/**
+	 * Find Child element
+	 *
+	 * @return	mixed	
+	 **/
+	public function find_descendant($attr)
+	{
+		if (is_string($attr))
+		{
+			$attr = array('id' => $attr);
+		}
+
+		$children = $this->get_children();
+
+		foreach ($children as $child)
+		{
+			if (!is_a($child, 'Reform\\Element'))
+			{
+				continue;
+			}
+			
+			if ($this->_array_in_array($attr, $child->get_attributes()))
+			{
+				return $child;
+			}
+			else
+			{
+				$result = $child->find_descendant($attr);
+			}
+
+			if (is_a($result, 'Reform\\Element'))
+			{
+				return $result;
+			}
+		}
+
+		return NULL;
+			
+	}
+
+	/**
+	 * Array in(side) Array
+	 * 
+	 * If all key->value pairs from array 1 are found 
+	 * in array 2, it returns TRUE, FALSE otherwise.
+	 *
+	 * @return	mixed	
+	 **/
+	protected function _array_in_array($array1, $array2)
+	{
+		foreach ($array1 as $key => $value)
+		{
+			if (!isset($array2[$key]) || $array2[$key] !== $value)
+			{
+				return FALSE;
+			}
+		}
+
+		return TRUE;
 	}
 
 	/**

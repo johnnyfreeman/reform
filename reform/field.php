@@ -22,22 +22,6 @@ namespace Reform;
 abstract class Field extends Element
 {
 	/**
-	 * Field construct
-	 *
-	 * @access	public
-	 * @return	object
-	 **/
-	public function __construct()
-	{
-		if (!empty($_POST) && isset($_POST[$this->get_attribute('name')]))
-		{
-			$this->set_value($_POST[$this->get_attribute('name')]);
-		}
-
-		return $this;
-	}
-
-	/**
 	 * ================================================
 	 * Methods for working with ValidationRule objects
 	 * ================================================
@@ -115,8 +99,59 @@ abstract class Field extends Element
 		return $this;
 	}
 
+
 	/**
-	 * Array of ValidationError objects 
+	 * ===========================================
+	 * Methods for working with the field's label
+	 * ===========================================
+	 **/
+
+	/**
+	 * Label object
+	 *
+	 * @var object
+	 **/
+	protected $_label;
+	
+	/**
+	 * Set Label for this field
+	 *
+	 * @param	mixed	Label as object or string
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function set_label($label)
+	{
+		if (is_string($label))
+		{
+			$this->_label = new \Reform\Elements\Label($label);
+		}
+		if (is_object($label))
+		{
+			$this->_label = $label;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get Label for this field
+	 *
+	 * @param	mixed	Label as object or string
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function get_label()
+	{
+		return $this->_label;
+	}
+
+	/**
+	 * ===========================================
+	 * Methods for working with errors
+	 * ===========================================
+	 **/
+
+	/**
+	 * Array of ValidationError objects
 	 * pertaining to this field only
 	 *
 	 * @var string
@@ -200,5 +235,40 @@ abstract class Field extends Element
 	public function get_value()
 	{
 		return $this->get_attribute('value');
+	}
+
+	/**
+	 * ======================================
+	 * Converting the element(s) to a string
+	 * ======================================
+	 **/
+	
+	/**
+	 * Convert the element object and all of it's children to a string.
+	 *
+	 * @return	string	element as html
+	 **/
+	public function __toString()
+	{
+		$class = get_class($this);
+
+		// strip namepaces
+		$class = substr($class, strrpos($class, "\\") + 1);
+		$template = REFORM_PATH . 'templates/' . strtolower($class) . '.php';
+
+		ob_start();
+
+		if (file_exists($template))
+		{
+			include($template);
+		}
+		else
+		{
+			include(REFORM_PATH . 'templates/field.php');
+		}
+
+		$buffer = ob_get_contents();
+		@ob_end_clean();
+		return $buffer;
 	}
 }

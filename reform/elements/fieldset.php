@@ -37,14 +37,14 @@ class Fieldset extends \Reform\Element {
 		{
 			if (!empty($legend))
 			{
-				$this->set_child_element(new Legend($legend));
+				$this->set_child(new Legend($legend));
 			}
 		}
 		else if (is_array($attributes))
 		{
 			if (array_key_exists('legend', $attributes))
 			{
-				$this->set_child_element(new Legend($attributes['legend']));
+				$this->set_child(new Legend($attributes['legend']));
 				
 				unset($attributes['legend']);
 			}

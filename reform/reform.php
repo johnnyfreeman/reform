@@ -35,17 +35,15 @@ function __autoload($class_name)
 		'Legend'     	=> 'Reform\\Elements\\Legend',
 		
 		// fields
-		'InputField'     	=> 'Reform\\Fields\\InputField',
-			'CheckboxField' => 'Reform\\Fields\\InputFields\\CheckboxField',
-			'EmailField'    => 'Reform\\Fields\\InputFields\\EmailField',
-			'PasswordField' => 'Reform\\Fields\\InputFields\\PasswordField',
-			'RadioField'    => 'Reform\\Fields\\InputFields\\RadioField',
-			'SubmitField'   => 'Reform\\Fields\\InputFields\\SubmitField',
-		'SelectField'   	=> 'Reform\\Fields\\SelectField',
-		'OptionField'   	=> 'Reform\\Fields\\OptionField',
-		'TextAreaField' 	=> 'Reform\\Fields\\TextAreaField',
-		
-		'Validation'     	=> 'Reform\\Validation'
+		'Input'     	=> 'Reform\\Fields\\Input',
+			'Checkbox' 	=> 'Reform\\Fields\\Inputs\\Checkbox',
+			'Email'    	=> 'Reform\\Fields\\Inputs\\Email',
+			'Password' 	=> 'Reform\\Fields\\Inputs\\Password',
+			'Radio'    	=> 'Reform\\Fields\\Inputs\\Radio',
+			'Submit'   	=> 'Reform\\Fields\\Inputs\\Submit',
+		'Select'   		=> 'Reform\\Fields\\Select',
+		'Option'   		=> 'Reform\\Fields\\Option',
+		'Textarea'		=> 'Reform\\Fields\\Textarea'
 		
 	);
 	

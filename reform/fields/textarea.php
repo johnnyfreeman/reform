@@ -17,14 +17,15 @@
 namespace Reform\Fields;
 
 /**
- * Element class
+ * Textarea class
  **/
-class OptionField extends \Reform\Field {
+class Textarea extends \Reform\Field {
+		
+	protected $_tag_name = 'textarea';
 	
-	protected $_tag_name = 'option';
-	
-	
-	protected $_attributes = array();
+	protected $_attributes = array(
+		'name' => ''
+	);
 	
 	protected $_child_elements = array();
 	
@@ -32,23 +33,22 @@ class OptionField extends \Reform\Field {
 	
 	protected $_self_closing_tag = FALSE;
 	
-	public function __construct($label, $value = NULL, $attributes = array())
+	public function __construct($name, $value = '', $attributes = array())
 	{
-		// attributes is a string
-		if (is_string($label))
+		if (is_string($name))
 		{
-			$this->set_child_element($label);
-			
-			if (!is_null($value))
+			$this->set_attribute('name', $name);
+
+			if (!empty($value))
 			{
-				$this->set_attribute('value', $value);
+				$this->set_value($value);
 			}
 			
 			$this->set_attributes($attributes);
 		}
-		else if (is_array($label))
+		else if (is_array($name))
 		{
-			$this->set_attributes($label);
+			$this->set_attributes($name);
 		}
 		
 		return parent::__construct();
@@ -59,8 +59,19 @@ class OptionField extends \Reform\Field {
 	 * Methods for getting / setting textarea values
 	 * ==============================================
 	 **/
-	
-	// function setValue() inherited from \Phormula\Field
+
+	/**
+	 * Set field value
+	 *
+	 * @param	string	Value to be set
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function set_value($value)
+	{
+		$this->_child_elements = array($value);
+		
+		return $this;
+	}
 	
 	/**
 	 * Get field value
@@ -70,29 +81,20 @@ class OptionField extends \Reform\Field {
 	 **/
 	public function get_value()
 	{
-		if ($this->attribute_exists('value'))
-		{
-			return $this->get_attribute('value');
-		}
+		$output = '';
 		
-		// use nested text
+		if (is_array($this->_child_elements))
+		{
+			foreach ($this->_child_elements as $child)
+			{
+				$output .= (string) $child;
+			}
+		}
 		else
 		{
-			$output = '';
-
-			if (is_array($this->_child_elements))
-			{
-				foreach ($this->_child_elements as $child)
-				{
-					$output .= (string) $child;
-				}
-			}
-			else
-			{
-				$output .= (string) $this->_child_elements;
-			}
-
-			return $output;
+			$output .= (string) $this->_child_elements;
 		}
+		
+		return $output;
 	}
 }

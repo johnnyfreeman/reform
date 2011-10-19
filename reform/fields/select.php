@@ -17,15 +17,16 @@
 namespace Reform\Fields;
 
 /**
- * Element class
+ * Select class
  **/
-class TextAreaField extends \Reform\Field {
+class Select extends \Reform\Field {
 		
-	protected $_tag_name = 'textarea';
+	protected $_tag_name = 'select';
+	
 	
 	protected $_attributes = array(
-		'name' => ''
-	);
+			'name' => ''
+		);
 	
 	protected $_child_elements = array();
 	
@@ -33,30 +34,41 @@ class TextAreaField extends \Reform\Field {
 	
 	protected $_self_closing_tag = FALSE;
 	
-	public function __construct($name, $value = '', $attributes = array())
+	public function __construct($attributes = array(), $options = array())
 	{
-		if (is_string($name))
+		// attributes is a string
+		if (is_string($attributes))
 		{
-			$this->set_attribute('name', $name);
-
-			if (!empty($value))
-			{
-				$this->set_value($value);
-			}
-			
-			$this->set_attributes($attributes);
-		}
-		else if (is_array($name))
-		{
-			$this->set_attributes($name);
+			// assume name attribute
+			$attributes = array('name', $attributes);
 		}
 		
-		return parent::__construct();
+		$this->set_attributes($attributes);
+
+		foreach ($options as $label => $option_attributes)
+		{
+			if (is_a($attributes, 'Reform\\Field\\Option'))
+			{
+				$this->set_child($option_attributes);
+			}
+			else
+			{
+				$this->set_child(new Option($label, $option_attributes));
+			}
+		}
+		
+		// overwrite default value with value from POST array
+		// if (!empty($_POST) && isset($_POST[$this->get_attribute('name')]))
+		// {
+		// 	$this->set_value($_POST[$this->get_attribute('name')]);
+		// }
 	}
+
+
 	
 	/**
 	 * ==============================================
-	 * Methods for getting / setting textarea values
+	 * Methods for getting / setting select values
 	 * ==============================================
 	 **/
 
@@ -68,7 +80,7 @@ class TextAreaField extends \Reform\Field {
 	 **/
 	public function set_value($value)
 	{
-		$this->_child_elements = array($value);
+		// $this->_child_elements = array($value);
 		
 		return $this;
 	}
@@ -81,20 +93,14 @@ class TextAreaField extends \Reform\Field {
 	 **/
 	public function get_value()
 	{
-		$output = '';
-		
-		if (is_array($this->_child_elements))
+		// all children should be instances of the OptionField
+		foreach ($this->get_children() as $option)
 		{
-			foreach ($this->_child_elements as $child)
+			// if it is selected, get it's value
+			if ($option->get_attribute('selected') === 'selected')
 			{
-				$output .= (string) $child;
+				return $option->get_value();
 			}
 		}
-		else
-		{
-			$output .= (string) $this->_child_elements;
-		}
-		
-		return $output;
 	}
 }

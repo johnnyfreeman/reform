@@ -14,30 +14,18 @@
  * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Reform\Elements;
+namespace Reform\Fields\Inputs;
 
 /**
- * Element class
+ * Email class
  **/
-class Ul extends \Reform\Element {
-		
-	protected $_tag_name = 'ul';
+class Email extends \Reform\Fields\Input {
 	
-	protected $_attributes = array();
+	protected $_attributes = array(
+			'name' => '',
+			'type' => 'email',
+			'value' => ''
+		);
 	
 	protected $_child_elements = array();
-	
-	protected $_parent_element;
-	
-	protected $_self_closing_tag = FALSE;
-	
-	public function __construct($attributes = array())
-	{
-		if (!empty($attributes))
-		{
-			$this->set_attributes($attributes);
-		}
-		
-		return $this;
-	}
 }

@@ -14,16 +14,16 @@
  * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Reform\Fields\InputFields;
+namespace Reform\Fields\Inputs;
 
 /**
- * Element class
+ * Password class
  **/
-class RadioField extends \Reform\Fields\InputField {
+class Password extends \Reform\Fields\Input {
 	
 	protected $_attributes = array(
 			'name' => '',
-			'type' => 'radio',
+			'type' => 'password',
 			'value' => ''
 		);
 	
