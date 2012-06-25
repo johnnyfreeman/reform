@@ -81,9 +81,9 @@ abstract class Field extends Element
 
 		$rule = implode('', $rule_parts);
 
-		if (class_exists('Reform\\ValidationRules\\' . $rule, TRUE))
+		if (class_exists('Reform\\ValidationRule\\' . $rule, TRUE))
 		{
-			$rule = 'Reform\\ValidationRules\\' . $rule;
+			$rule = 'Reform\\ValidationRule\\' . $rule;
 			
 			// instantiate new rule with params
 			$rule = new $rule($param1, $param2);
@@ -164,16 +164,9 @@ abstract class Field extends Element
 	 * @param	mixed	ValidationError as object or string
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_error($error)
+	public function set_error(ValidationException $error)
 	{
-		if (is_string($error))
-		{
-			array_push($this->_validation_errors, new ValidationError($error));
-		}
-		if (is_object($error))
-		{
-			array_push($this->_validation_errors, $error);
-		}
+		array_push($this->_validation_errors, $error);
 		
 		return $this;
 	}

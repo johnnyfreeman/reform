@@ -11,23 +11,28 @@ ini_set('display_errors', '1');
  */
 require_once('reform/reform.php');
 
+use Reform\Reform;
+Reform::registerAutoloader(); // faster than generic autoloaders
+
 
 /**
  * EXAMPLE FORM
  */
-$form = Form::create('')->set_attribute('id', 'my_form');
 
-Input::create('name')->add_rule('required')->append_to($form)->set_attribute('id', 'name');
+$form = Reform::form(array('id'=>'my_form'));
 
-Email::create('email')->add_rule('required')->append_to($form);
+Reform::input('name')->add_rule('required')->append_to($form)->set_attribute('id', 'name');
+Reform::email('email')->add_rule('required')->append_to($form);
+$password1 = Reform::password('password1')->add_rule('required')->append_to($form);
+Reform::password('password2')->add_rule('matches_field', $password1)->append_to($form);
+$account_type = Reform::select('account_type')->append_to($form);
+Reform::option('foo')->append_to($account_type);
+Reform::option('foo1')->append_to($account_type);
+Reform::option('bar', 'foo')->append_to($account_type);
+Reform::option('foo2')->append_to($account_type);
+Reform::submit('', 'Sign up')->append_to($form);
 
-$password = Password::create('password')->append_to($form);
-
-Password::create('password_conf')->add_rule('matches_field', $password)->append_to($form);
-
-Select::create('account_type')->append_to($form)->append(new Option('foo'))->append(new Option('foo1'))->append(new Option('foo2'))->append($option = Option::create('bar', 'foo')->set_attribute('id','my_option'))->set_attribute('id','my_select')->append(new Option('foo'));
-
-Submit::create('', 'Sign up')->append_to($form);
+//echo '<pre>'; print_r($form); echo '</pre>'; die();
 
 if (!empty($_POST))
 {
@@ -35,6 +40,10 @@ if (!empty($_POST))
 	{
 		// do something
 		echo 'email sent!';
+	}
+	else
+	{
+		echo 'not valid!!!';
 	}
 }
 

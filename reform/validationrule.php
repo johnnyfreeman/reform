@@ -119,7 +119,7 @@ abstract class ValidationRule
 	 * 
 	 * @access public
 	 * @param 	
-	 * @return
+	 * @return Field instance
 	 */
 	public function get_field()
 	{

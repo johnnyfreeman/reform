@@ -59,27 +59,6 @@ abstract class Element {
 	 * @var string
 	 **/
 	protected $_self_closing_tag = FALSE;
-
-	/**
-	 * Factory Method for creating new elements
-	 *
-	 * @return	object
-	 **/
-	static public function create()
-	{
-		$p = func_get_args();
-		$count = func_num_args();
-
-		switch ($count)
-		{
-			case 1: return new static($p[0]);
-			case 2: return new static($p[0], $p[1]);
-			case 3: return new static($p[0], $p[1], $p[2]);
-			case 4: return new static($p[0], $p[1], $p[2], $p[3]);
-			case 5: return new static($p[0], $p[1], $p[2], $p[3], $p[4]);
-			default: return new static();
-		}
-	}
 	
 	/**
 	 * ==================================================

@@ -1,5 +1,7 @@
 <?php
 
+use Reform\Reform;
+
 // get a few variables
 $name = $this->get_attribute('name');
 $id = $this->get_attribute('id');
@@ -11,7 +13,7 @@ if (empty($id))
 }
 
 // build field's label
-$output = Label::create($name)->set_attribute('for', $id);
+$output = Reform::label($name)->set_attribute('for', $id);
 
 // open tag
 $output .= '<' . $this->get_tag_name();
