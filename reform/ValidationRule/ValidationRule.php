@@ -16,6 +16,7 @@
 
 namespace Reform\ValidationRule;
 
+use Reform\Field\Field;
 use Reform\Exception\ValidationFailedException;
 
 /**
