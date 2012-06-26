@@ -89,7 +89,7 @@ class Form extends Element {
 			// loop through this whole process with it's children
 			else if ($child_element->hasChildren())
 			{
-				$this->validate($child_element);
+				$this->runValidation($child_element);
 			}
 		}
 
