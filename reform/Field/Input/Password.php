@@ -16,8 +16,6 @@
 
 namespace Reform\Field\Input;
 
-use Reform\Field\Input;
-
 /**
  * Password class
  **/

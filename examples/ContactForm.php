@@ -1,7 +1,7 @@
 <?php
 
 use Reform\Element\Form;
-use Reform\Field\Input;
+use Reform\Field\Input\Input;
 use Reform\Field\Input\Email;
 use Reform\Field\Input\Submit;
 use Reform\Field\Textarea;
