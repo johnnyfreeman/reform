@@ -190,16 +190,16 @@ final class Reform
 
             // fields
             'Reform\\Field\\Field'              => REFORM_PATH.'Field/Field.php',
-            'Reform\\Field\\Button'             => REFORM_PATH.'Field\\Button.php',
-            'Reform\\Field\\Input'              => REFORM_PATH.'Field\\Input.php',
-            'Reform\\Field\\Input\\Checkbox'    => REFORM_PATH.'Field\\Input\\Checkbox.php',
-            'Reform\\Field\\Input\\Email'       => REFORM_PATH.'Field\\Input\\Email.php',
-            'Reform\\Field\\Input\\Password'    => REFORM_PATH.'Field\\Input\\Password.php',
-            'Reform\\Field\\Input\\Radio'       => REFORM_PATH.'Field\\Input\\Radio.php',
-            'Reform\\Field\\Input\\Submit'      => REFORM_PATH.'Field\\Input\\Submit.php',
-            'Reform\\Field\\Select'             => REFORM_PATH.'Field\\Select.php',
-            'Reform\\Field\\Option'             => REFORM_PATH.'Field\\Option.php',
-            'Reform\\Field\\Textarea'           => REFORM_PATH.'Field\\Textarea.php',
+            'Reform\\Field\\Button'             => REFORM_PATH.'Field/Button.php',
+            'Reform\\Field\\Input\\Input'       => REFORM_PATH.'Field/Input/Input.php',
+            'Reform\\Field\\Input\\Checkbox'    => REFORM_PATH.'Field/Input/Checkbox.php',
+            'Reform\\Field\\Input\\Email'       => REFORM_PATH.'Field/Input/Email.php',
+            'Reform\\Field\\Input\\Password'    => REFORM_PATH.'Field/Input/Password.php',
+            'Reform\\Field\\Input\\Radio'       => REFORM_PATH.'Field/Input/Radio.php',
+            'Reform\\Field\\Input\\Submit'      => REFORM_PATH.'Field/Input/Submit.php',
+            'Reform\\Field\\Select'             => REFORM_PATH.'Field/Select.php',
+            'Reform\\Field\\Option'             => REFORM_PATH.'Field/Option.php',
+            'Reform\\Field\\Textarea'           => REFORM_PATH.'Field/Textarea.php',
 
             // validation rules
             'Reform\\ValidationRule\\ValidationRule'    => REFORM_PATH.'ValidationRule/ValidationRule.php',
