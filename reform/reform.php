@@ -182,14 +182,14 @@ final class Reform
         $class_map = array(
 
             // elements
-            'Reform\\Element'           => REFORM_PATH.'Element.php',
+            'Reform\\Element\\Element'  => REFORM_PATH.'Element/Element.php',
             'Reform\\Element\\Fieldset' => REFORM_PATH.'Element/Fieldset.php',
             'Reform\\Element\\Form'     => REFORM_PATH.'Element/Form.php',
             'Reform\\Element\\Label'    => REFORM_PATH.'Element/Label.php',
             'Reform\\Element\\Legend'   => REFORM_PATH.'Element/Legend.php',
 
             // fields
-            'Reform\\Field'                     => REFORM_PATH.'Field.php',
+            'Reform\\Field\\Field'              => REFORM_PATH.'Field/Field.php',
             'Reform\\Field\\Button'             => REFORM_PATH.'Field\\Button.php',
             'Reform\\Field\\Input'              => REFORM_PATH.'Field\\Input.php',
             'Reform\\Field\\Input\\Checkbox'    => REFORM_PATH.'Field\\Input\\Checkbox.php',
@@ -202,10 +202,10 @@ final class Reform
             'Reform\\Field\\Textarea'           => REFORM_PATH.'Field\\Textarea.php',
 
             // validation rules
-            'Reform\\ValidationRule'                => REFORM_PATH.'ValidationRule.php',
-            'Reform\\ValidationRule\\MatchesField'  => REFORM_PATH.'ValidationRule/MatchesField.php',
-            'Reform\\ValidationRule\\MatchesValue'  => REFORM_PATH.'ValidationRule/MatchesValue.php',
-            'Reform\\ValidationRule\\Required'      => REFORM_PATH.'ValidationRule/Required.php',
+            'Reform\\ValidationRule\\ValidationRule'    => REFORM_PATH.'ValidationRule/ValidationRule.php',
+            'Reform\\ValidationRule\\MatchesField'      => REFORM_PATH.'ValidationRule/MatchesField.php',
+            'Reform\\ValidationRule\\MatchesValue'      => REFORM_PATH.'ValidationRule/MatchesValue.php',
+            'Reform\\ValidationRule\\Required'          => REFORM_PATH.'ValidationRule/Required.php',
 
             // exceptions
             'Reform\\Exception\\ValidationFailedException' => REFORM_PATH.'Exception/ValidationFailedException.php',
