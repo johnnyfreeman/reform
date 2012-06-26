@@ -4,7 +4,9 @@ $name = $this->get_attribute('name');
 $id = $this->get_attribute('name') . '_field';
 $value = $this->get_value();
 
-?><div class="row">
+?>
+
+<div class="row">
 	<label for="<?php echo $id; ?>"><?php echo $name; ?></label>
 
 	<br />
