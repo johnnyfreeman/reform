@@ -63,14 +63,14 @@ class Form extends Element {
 	public function runValidation(Element $element = NULL)
 	{
 		// if no element is passed, get all children of this Form Field
-		is_null($element) AND $children = $this->getChildren();
+		$children = is_null($element) ? $this->getChildren() : $element->getChildren();
 
 		// loopty loop
 		foreach ($children as $child_element)
 		{
 			// if this childelement is a subclass of the Field object,
 			// loop through it's rules and run each
-			if (is_a($child_element, 'Reform\\Field'))
+			if (is_a($child_element, 'Reform\\Field\\Field'))
 			{
 				foreach ($child_element->getRules() as $rule)
 				{
@@ -87,7 +87,7 @@ class Form extends Element {
 
 			// if this childelement is NOT a subclass of the Field object and it has children,
 			// loop through this whole process with it's children
-			else if ($child_element->hasChildren())
+			else if (is_a($child_element, 'Reform\\Element\\Element'))
 			{
 				$this->runValidation($child_element);
 			}

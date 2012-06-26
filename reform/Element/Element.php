@@ -484,7 +484,7 @@ abstract class Element {
 
 		foreach ($children as $child)
 		{
-			if (!is_a($child, 'Reform\\Element'))
+			if (!is_a($child, 'Reform\\Element\\Element'))
 			{
 				continue;
 			}
@@ -498,7 +498,7 @@ abstract class Element {
 				$result = $child->findDescendant($attr);
 			}
 
-			if (is_a($result, 'Reform\\Element'))
+			if (is_a($result, 'Reform\\Element\\Element'))
 			{
 				return $result;
 			}
