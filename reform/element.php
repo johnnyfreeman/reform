@@ -147,7 +147,7 @@ abstract class Element {
 	 **/
 	public function __set($name, $value)
 	{
-		return $this->set_attribute($name, $value);
+		return $this->setAttribute($name, $value);
 	}
 	
 	/**

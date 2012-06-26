@@ -15,7 +15,7 @@ $value = $this->getValue();
 
 	<?php if ($this->hasErrors()): ?>
 	
-		<ul class="errors">
+		<ul class="error">
 
 			<?php foreach ($this->getErrors() as $error): ?>
 				<li><?php echo $error; ?></li>

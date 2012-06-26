@@ -210,8 +210,6 @@ final class Reform
             // exceptions
             'Reform\\Exception\\ValidationFailedException' => REFORM_PATH.'Exception/ValidationFailedException.php',
         );
-        //echo '<pre>'; print_r('trying to autoload: '.$classname); echo '</pre>';
-        //echo '<pre>'; print_r('from location: '.$class_map[$classname]); echo '</pre>';
 
         if (array_key_exists($classname, $class_map) && is_readable($class_map[$classname]))
         {
