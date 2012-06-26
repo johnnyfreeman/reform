@@ -190,7 +190,7 @@ abstract class Element {
 	 **/
 	public function hasAttribute($name)
 	{
-		return array_key_exists($this->getAttributes(), $name) ? TRUE : FALSE;
+		return array_key_exists($name, $this->getAttributes()) ? TRUE : FALSE;
 	}
 	
 	/**
