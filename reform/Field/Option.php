@@ -16,8 +16,6 @@
 
 namespace Reform\Field;
 
-use Reform\Field;
-
 /**
  * Option class
  **/

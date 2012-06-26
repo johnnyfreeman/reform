@@ -16,8 +16,6 @@
 
 namespace Reform\Element;
 
-use Reform\Element;
-
 /**
  * Element class
  **/

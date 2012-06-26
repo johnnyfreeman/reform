@@ -16,9 +16,8 @@
 
 namespace Reform\ValidationRule;
 
-use Reform\ValidationRule;
 use Reform\Exception\ValidationFailedException;
-use Reform\Field;
+use Reform\Field\Field;
 
 /**
  * MatchesField rule

@@ -16,7 +16,6 @@
 
 namespace Reform\Element;
 
-use Reform\Element;
 use Reform\Exception\ValidationFailedException;
 
 /**

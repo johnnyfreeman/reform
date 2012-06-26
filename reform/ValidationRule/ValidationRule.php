@@ -14,7 +14,7 @@
  * @link       http://johnnyfreeman.github.com/re-form
  */
 
-namespace Reform;
+namespace Reform\ValidationRule;
 
 use Reform\Exception\ValidationFailedException;
 
