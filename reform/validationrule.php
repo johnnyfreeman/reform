@@ -26,33 +26,13 @@ use Reform\Exception\ValidationFailedException;
 abstract class ValidationRule
 {
 	/**
-	 * Once a rule is run the result is stored here
-	 *
-	 * @var bool
-	 **/
-	protected $_runResult;
-
-	/**
 	 * The Run method is called by the Validation object upon validating all fields and should contain the logic for rule. Also, it should return TRUE or FALSE
 	 *
 	 * @access	public
+	 * @throws	ValidationFailedException
+	 * @return 	void
 	 **/
 	public abstract function run(); // to be implimented in sub classes
-
-	/**
-	 * The Run method is called by the Validation object upon validating all fields and should contain the logic for rule. Also, it should return TRUE or FALSE
-	 *
-	 * @access	public
-	 **/
-	public function validate()
-	{
-		if (is_null($this->_runResult))
-		{
-			$this->_runResult = $this->run();
-		}
-
-		return $this->_runResult;
-	}
 
 	/**
 	 * ============================
@@ -75,7 +55,7 @@ abstract class ValidationRule
 	 **/
 	public function getErrorMessage()
 	{
-		return new ValidationFailedException($this->_errorMessage);
+		return $this->_errorMessage;
 	}
 	
 	/**
