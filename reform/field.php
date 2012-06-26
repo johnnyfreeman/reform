@@ -16,6 +16,8 @@
 
 namespace Reform;
 
+use Reform\Exception\ValidationFailedException;
+
 /**
  * Field class
  **/
@@ -32,7 +34,7 @@ abstract class Field extends Element
 	 *
 	 * @var string
 	 **/
-	protected $_validation_rules = array();
+	protected $_validationRules = array();
 	
 	/**
 	 * Returns an array of all registered ValidationRule objects
@@ -40,9 +42,9 @@ abstract class Field extends Element
 	 * @access	public
 	 * @return	array
 	 */
-	public function get_rules()
+	public function getRules()
 	{
-		return $this->_validation_rules;
+		return $this->_validationRules;
 	}
 	
 	/**
@@ -52,9 +54,9 @@ abstract class Field extends Element
 	 * @param	object
 	 * @return	bool
 	 */
-	public function set_rule($rule)
+	public function setRule($rule)
 	{
-		array_push($this->_validation_rules, $rule);
+		array_push($this->_validationRules, $rule);
 		
 		return $this;
 	}
@@ -66,7 +68,7 @@ abstract class Field extends Element
 	 * @param	mixed	Callback
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function add_rule($rule, $param1 = NULL, $param2 = NULL)
+	public function addRule($rule, $param1 = NULL, $param2 = NULL)
 	{
 		// seperate parts by underscore
 		$rule_parts = explode('_', $rule);
@@ -90,10 +92,10 @@ abstract class Field extends Element
 
 			// encapsulate the field inside 
 			// the rule for easy access
-			$rule->set_field($this);
+			$rule->setField($this);
 
 			// save this rule to this field
-			$this->set_rule($rule);
+			$this->setRule($rule);
 		}
 		
 		return $this;
@@ -119,13 +121,13 @@ abstract class Field extends Element
 	 * @param	mixed	Label as object or string
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_label($label)
+	public function setLabel($label)
 	{
 		if (is_string($label))
 		{
-			$this->_label = new \Reform\Elements\Label($label);
+			$this->_label = new Label($label);
 		}
-		if (is_object($label))
+		if (is_object($label) && is_a($label, 'Reform\\Element\\Label'))
 		{
 			$this->_label = $label;
 		}
@@ -139,7 +141,7 @@ abstract class Field extends Element
 	 * @param	mixed	Label as object or string
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function get_label()
+	public function getLabel()
 	{
 		return $this->_label;
 	}
@@ -151,54 +153,54 @@ abstract class Field extends Element
 	 **/
 
 	/**
-	 * Array of ValidationError objects
+	 * Array of ValidationFailedException objects
 	 * pertaining to this field only
 	 *
 	 * @var string
 	 **/
-	protected $_validation_errors = array();
+	protected $_validationErrors = array();
 	
 	/**
-	 * Set ValidationError for this field
+	 * Set ValidationFailedException for this field
 	 *
-	 * @param	mixed	ValidationError as object or string
+	 * @param	mixed	ValidationFailedException as object or string
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_error(ValidationException $error)
+	public function setError(ValidationFailedException $error)
 	{
-		array_push($this->_validation_errors, $error);
+		array_push($this->_validationErrors, $error);
 		
 		return $this;
 	}
 	
 	/**
-	 * Get ValidationErrors for this field
+	 * Get ValidationFailedException for this field
 	 *
-	 * @return	array	Returns an array of ValidationError objects
+	 * @return	array	Returns an array of ValidationFailedException objects
 	 **/
-	public function get_errors()
+	public function getErrors()
 	{
-		return $this->_validation_errors;
+		return $this->_validationErrors;
 	}
 	
 	/**
-	 * Get first ValidationError for this field
+	 * Get first ValidationFailedException for this field
 	 *
-	 * @return	object	Returns an array of ValidationError objects
+	 * @return	object	Returns an array of ValidationFailedException objects
 	 **/
-	public function get_error()
+	public function getError()
 	{
-		return isset($this->_validation_errors[0]) ? $this->_validation_errors[0] : NULL;
+		return isset($this->_validationErrors[0]) ? $this->_validationErrors[0] : NULL;
 	}
 
 	/**
 	 * Check if this field has any errors
 	 *
-	 * @return	array	Returns an array of ValidationError objects
+	 * @return	array	Returns an array of ValidationFailedException objects
 	 **/
-	public function has_errors()
+	public function hasErrors()
 	{
-		return count($this->_validation_errors) > 0 ? TRUE : FALSE;
+		return count($this->_validationErrors) > 0 ? TRUE : FALSE;
 	}
 
 
@@ -214,9 +216,9 @@ abstract class Field extends Element
 	 * @param	string	Value to be set
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_value($value)
+	public function setValue($value)
 	{
-		return $this->set_attribute('value', $value);
+		return $this->setAttribute('value', $value);
 	}
 	
 	/**
@@ -225,9 +227,9 @@ abstract class Field extends Element
 	 * @param	string	Value to be set
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function get_value()
+	public function getValue()
 	{
-		return $this->get_attribute('value');
+		return $this->getAttribute('value');
 	}
 
 	/**

@@ -3,29 +3,29 @@
 use Reform\Reform;
 
 // get a few variables
-$name = $this->get_attribute('name');
-$id = $this->get_attribute('id');
+$name = $this->getAttribute('name');
+$id = $this->getAttribute('id');
 
 if (empty($id))
 {
 	$id = $name . '_field';
-	$this->set_attribute('id', $id);
+	$this->setAttribute('id', $id);
 }
 
 // build field's label
-$output = Reform::label($name)->set_attribute('for', $id);
+$output = Reform::label($name)->setAttribute('for', $id);
 
 // open tag
-$output .= '<' . $this->get_tag_name();
+$output .= '<' . $this->getTagName();
 
 // write in attributes
-if (count($this->get_attributes()) > 0)
+if (count($this->getAttributes()) > 0)
 {
-	$output .= ' ' . $this->attributes_to_string();
+	$output .= ' ' . $this->attributesToString();
 }
 
 // self closing
-if ($this->is_self_closing())
+if ($this->isSelfClosing())
 {
 	echo $output . ' />';
 }
@@ -36,19 +36,19 @@ else
 	$output .= '>';
 
 	// print any child element this tag may have
-	foreach ($this->get_children() as $element)
+	foreach ($this->getChildren() as $element)
 	{
 		$output .= $element;
 	}
 
 	// call her done
-	$output .= '</' . $this->get_tag_name() . '>';
+	$output .= '</' . $this->getTagName() . '>';
 
 	echo $output;
 }
 
 // check for errors
-if ($this->has_errors())
+if ($this->hasErrors())
 {
-	echo '<div class="error">' . $this->get_error() . '</div>';
+	echo '<div class="error">' . $this->getError() . '</div>';
 }

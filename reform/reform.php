@@ -171,7 +171,7 @@ final class Reform
 
     public static function registerAutoloader()
     {
-        spl_autoload_register('static::load', true, true);
+        return spl_autoload_register('static::load', true, true);
     }
 
     // super quick autoloader for re:form
@@ -202,11 +202,13 @@ final class Reform
             'Reform\\Field\\Textarea'           => REFORM_PATH.'Field\\Textarea.php',
 
             // validation rules
-            'Reform\\ValidationException'           => REFORM_PATH.'ValidationException.php',
             'Reform\\ValidationRule'                => REFORM_PATH.'ValidationRule.php',
             'Reform\\ValidationRule\\MatchesField'  => REFORM_PATH.'ValidationRule/MatchesField.php',
             'Reform\\ValidationRule\\MatchesValue'  => REFORM_PATH.'ValidationRule/MatchesValue.php',
             'Reform\\ValidationRule\\Required'      => REFORM_PATH.'ValidationRule/Required.php',
+
+            // exceptions
+            'Reform\\Exception\\ValidationFailedException' => REFORM_PATH.'Exception/ValidationFailedException.php',
         );
         //echo '<pre>'; print_r('trying to autoload: '.$classname); echo '</pre>';
         //echo '<pre>'; print_r('from location: '.$class_map[$classname]); echo '</pre>';

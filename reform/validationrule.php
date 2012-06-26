@@ -16,6 +16,8 @@
 
 namespace Reform;
 
+use Reform\Exception\ValidationFailedException;
+
 /**
  * Validation Rule
  *
@@ -28,7 +30,7 @@ abstract class ValidationRule
 	 *
 	 * @var bool
 	 **/
-	protected $_run_result;
+	protected $_runResult;
 
 	/**
 	 * The Run method is called by the Validation object upon validating all fields and should contain the logic for rule. Also, it should return TRUE or FALSE
@@ -44,12 +46,12 @@ abstract class ValidationRule
 	 **/
 	public function validate()
 	{
-		if (is_null($this->_run_result))
+		if (is_null($this->_runResult))
 		{
-			$this->_run_result = $this->run();
+			$this->_runResult = $this->run();
 		}
 
-		return $this->_run_result;
+		return $this->_runResult;
 	}
 
 	/**
@@ -63,16 +65,17 @@ abstract class ValidationRule
 	 *
 	 * @var string
 	 **/
-	protected $_error_message = 'This field failed validation.';
+	protected $_errorMessage = 'This field failed validation.';
 	
 	/**
 	 * Returns formatted error message with the field's name inserted into the _error_message property.
 	 *
 	 * @access	public
+	 * @return ValidationFailedException
 	 **/
-	public function get_error_message()
+	public function getErrorMessage()
 	{
-		return $this->_error_message;
+		return new ValidationFailedException($this->_errorMessage);
 	}
 	
 	/**
@@ -80,9 +83,9 @@ abstract class ValidationRule
 	 *
 	 * @access	public
 	 **/
-	public function set_error_message($message)
+	public function setErrorMessage($message)
 	{
-		$this->_error_message = $message;
+		$this->_errorMessage = $message;
 
 		return $this;
 	}
@@ -107,7 +110,7 @@ abstract class ValidationRule
 	 * @param	object	Field
 	 * @return	object	ValidationRule
 	 */
-	public function set_field(Field $field)
+	public function setField(Field $field)
 	{
 		$this->_field = $field;
 		
@@ -121,7 +124,7 @@ abstract class ValidationRule
 	 * @param 	
 	 * @return Field instance
 	 */
-	public function get_field()
+	public function getField()
 	{
 		return $this->_field;
 	}

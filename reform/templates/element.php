@@ -1,16 +1,16 @@
 <?php
 
 // open tag
-$output = '<' . $this->get_tag_name();
+$output = '<' . $this->getTagName();
 
 // write in attributes
-if (count($this->get_attributes()) > 0)
+if (count($this->getAttributes()) > 0)
 {
-	$output .= ' ' . $this->attributes_to_string();
+	$output .= ' ' . $this->attributesToString();
 }
 
 // self closing
-if ($this->is_self_closing())
+if ($this->isSelfClosing())
 {
 	echo $output . ' />';
 }
@@ -21,13 +21,13 @@ else
 	$output .= '>';
 
 	// print any child element this tag may have
-	foreach ($this->get_children() as $element)
+	foreach ($this->getChildren() as $element)
 	{
 		$output .= $element;
 	}
 
 	// call her done
-	$output .= '</' . $this->get_tag_name() . '>';
+	$output .= '</' . $this->getTagName() . '>';
 
 	echo $output;
 }

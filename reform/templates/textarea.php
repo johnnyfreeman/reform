@@ -1,8 +1,8 @@
 <?php
 
-$name = $this->get_attribute('name');
-$id = $this->get_attribute('name') . '_field';
-$value = $this->get_value();
+$name = $this->getAttribute('name');
+$id = $this->getAttribute('name') . '_field';
+$value = $this->getValue();
 
 ?>
 
@@ -13,11 +13,11 @@ $value = $this->get_value();
 
 	<textarea id="<?php echo $id; ?>" name="<?php echo $name; ?>"><?php echo $value; ?></textarea>
 
-	<?php if ($this->has_errors()): ?>
+	<?php if ($this->hasErrors()): ?>
 	
 		<ul class="errors">
 
-			<?php foreach ($this->get_errors() as $error): ?>
+			<?php foreach ($this->getErrors() as $error): ?>
 				<li><?php echo $error; ?></li>
 			<?php endforeach; ?>
 

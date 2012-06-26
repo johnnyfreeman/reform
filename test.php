@@ -21,16 +21,16 @@ Reform::registerAutoloader(); // faster than generic autoloaders
 
 $form = Reform::form(array('id'=>'my_form'));
 
-Reform::input('name')->add_rule('required')->append_to($form)->set_attribute('id', 'name');
-Reform::email('email')->add_rule('required')->append_to($form);
-$password1 = Reform::password('password1')->add_rule('required')->append_to($form);
-Reform::password('password2')->add_rule('matches_field', $password1)->append_to($form);
-$account_type = Reform::select('account_type')->append_to($form);
-Reform::option('foo')->append_to($account_type);
-Reform::option('foo1')->append_to($account_type);
-Reform::option('bar', 'foo')->append_to($account_type);
-Reform::option('foo2')->append_to($account_type);
-Reform::submit('', 'Sign up')->append_to($form);
+Reform::input('name')->addRule('required')->appendTo($form)->setAttribute('id', 'name');
+Reform::email('email')->addRule('required')->appendTo($form);
+$password1 = Reform::password('password1')->addRule('required')->appendTo($form);
+Reform::password('password2')->addRule('matches_field', $password1)->appendTo($form);
+$account_type = Reform::select('account_type')->appendTo($form);
+Reform::option('foo')->appendTo($account_type);
+Reform::option('foo1')->appendTo($account_type);
+Reform::option('bar', 'foo')->appendTo($account_type);
+Reform::option('foo2')->appendTo($account_type);
+Reform::submit('', 'Sign up')->appendTo($form);
 
 //echo '<pre>'; print_r($form); echo '</pre>'; die();
 

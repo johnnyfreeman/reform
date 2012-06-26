@@ -26,7 +26,7 @@ abstract class Element {
 	 *
 	 * @var string
 	 **/
-	protected $_tag_name;
+	protected $_tagName;
 	
 	/**
 	 * Array of Elements Attributes
@@ -44,21 +44,21 @@ abstract class Element {
 	 *
 	 * @var	array
 	 **/
-	protected $_child_elements = array();
+	protected $_childElements = array();
 	
 	/**
 	 * Holds the immediate parent element object
 	 *
 	 * @var object
 	 **/
-	protected $_parent_element;
+	protected $_parentElement;
 	
 	/**
 	 * Self closing flag
 	 *
 	 * @var string
 	 **/
-	protected $_self_closing_tag = FALSE;
+	protected $_selfClosingTag = FALSE;
 	
 	/**
 	 * ==================================================
@@ -71,9 +71,9 @@ abstract class Element {
 	 *
 	 * @return	mixed	Attribute's value or NULL
 	 **/
-	public function get_tag_name()
+	public function getTagName()
 	{
-		return $this->_tag_name;
+		return $this->_tagName;
 	}
 	
 	/**
@@ -88,7 +88,7 @@ abstract class Element {
 	 * @param	string	Name of attribute
 	 * @return	mixed	Attribute's value or NULL
 	 **/
-	public function get_attribute($name)
+	public function getAttribute($name)
 	{
 		return array_key_exists($name, $this->_attributes) ? $this->_attributes[$name] : NULL;
 	}
@@ -106,7 +106,7 @@ abstract class Element {
 	 **/
 	public function __get($name)
 	{
-		return $this->get_attribute($name);
+		return $this->getAttribute($name);
 	}
 	
 	/**
@@ -114,7 +114,7 @@ abstract class Element {
 	 *
 	 * @return	array	Array of attributes as a name => value pair
 	 **/
-	public function get_attributes()
+	public function getAttributes()
 	{
 		return $this->_attributes;
 	}
@@ -126,7 +126,7 @@ abstract class Element {
 	 * @param	string	New value
 	 * @return	object	Returns the object to allow method chaining
 	 **/
-	public function set_attribute($name, $value)
+	public function setAttribute($name, $value)
 	{
 		$this->_attributes[$name] = $value;
 		
@@ -134,7 +134,7 @@ abstract class Element {
 	}
     
 	/**
-	 * Alias to set_attribute(). It allows you set
+	 * Alias to setAttribute(). It allows you set
 	 * an element's attributes as if it were a 
 	 * property of the element object, like so:
 	 * 
@@ -156,7 +156,7 @@ abstract class Element {
 	 * @param	string	Name of attribute
 	 * @return	object	Returns the object to allow method chaining
 	 **/
-	public function remove_attribute($name)
+	public function removeAttribute($name)
 	{
 		if (isset($this->_attributes[$name]))
 		{
@@ -172,11 +172,11 @@ abstract class Element {
 	 * @param	array	Name => value pairs
 	 * @return	object	Returns the object to allow method chaining
 	 **/
-	public function set_attributes($attributes = array())
+	public function setAttributes($attributes = array())
 	{
 		foreach ($attributes as $name => $value)
 		{
-			$this->set_attribute($name, $value);
+			$this->setAttribute($name, $value);
 		}
 		
 		return $this;
@@ -188,9 +188,9 @@ abstract class Element {
 	 * @param	string	Name of attribute
 	 * @return	bool	TRUE if it exists and FALSE if otherwise
 	 **/
-	public function attribute_exists($name)
+	public function hasAttribute($name)
 	{
-		return array_key_exists($this->get_attributes(), $name) ? TRUE : FALSE;
+		return array_key_exists($this->getAttributes(), $name) ? TRUE : FALSE;
 	}
 	
 	/**
@@ -200,11 +200,11 @@ abstract class Element {
 	 *
 	 * @return	string	string of all attributes
 	 **/
-	public function attributes_to_string()
+	public function attributesToString()
 	{
 		$attributes = array();
 		
-		foreach ($this->get_attributes() as $name => $value)
+		foreach ($this->getAttributes() as $name => $value)
 		{
 			if (is_string($value))
 			{
@@ -226,9 +226,9 @@ abstract class Element {
 	 *
 	 * @return	array	Array of elements (object) and text nodes (string)
 	 **/
-	public function get_children()
+	public function getChildren()
 	{
-		return $this->_child_elements;
+		return $this->_childElements;
 	}
 	
 	/**
@@ -238,10 +238,10 @@ abstract class Element {
 	 * @param	string	Whether to position the new child before or after existing children
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_child($element, $position = 'bottom')
+	public function setChild($element, $position = 'bottom')
 	{
 		// you can't nest anything inside self closing elements
-		if ($this->_self_closing_tag)
+		if ($this->_selfClosingTag)
 		{
 			throw new LogicException('You cannot add a child element to a self closing element.');
 		}
@@ -249,18 +249,18 @@ abstract class Element {
 		// where to place the child
 		if ($position == 'bottom')
 		{
-			array_push($this->_child_elements, $element);
+			array_push($this->_childElements, $element);
 		}
 		else if ($position == 'top')
 		{
-			array_unshift($this->_child_elements, $element);
+			array_unshift($this->_childElements, $element);
 		}
 		
 		// if child is an object, set 
 		// current object as its parent
 		if ($element instanceof Element)
 		{
-			$element->set_parent($this);
+			$element->setParent($this);
 		}
 		
 		return $this;
@@ -271,9 +271,9 @@ abstract class Element {
 	 *
 	 * @return	bool
 	 **/
-	public function has_children()
+	public function hasChildren()
 	{
-		return count($this->_child_elements) > 0;
+		return count($this->_childElements) > 0;
 	}
 
 	/**
@@ -292,7 +292,7 @@ abstract class Element {
 		$elements = array_reverse($elements, TRUE);
 
 		foreach ($elements as $element) {
-			$this->set_child($element);
+			$this->setChild($element);
 		}
 		
 		return $this;
@@ -304,9 +304,9 @@ abstract class Element {
 	 * @param	object	Element object
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function append_to($element)
+	public function appendTo($element)
 	{
-		$element->set_child($this);
+		$element->setChild($this);
 
 		return $this;
 	}
@@ -327,7 +327,7 @@ abstract class Element {
 		$elements = array_reverse($elements, TRUE);
 
 		foreach ($elements as $element) {
-			$this->set_child($element, 'top');
+			$this->setChild($element, 'top');
 		}
 		
 		return $this;
@@ -339,9 +339,9 @@ abstract class Element {
 	 * @param	object	Element object
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function prepend_to($element)
+	public function prependTo($element)
 	{
-		$element->set_child($this, 'top');
+		$element->setChild($this, 'top');
 
 		return $this;
 	}
@@ -352,14 +352,9 @@ abstract class Element {
 	 * @param	object	Parent element
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function set_parent($element)
+	public function setParent(Element $element)
 	{
-		if (!is_object($element))
-		{
-			throw new LogicException('You cannot set a parent element that is not of the <em>object</em> type.');
-		}
-		
-		$this->_parent_element = $element;
+		$this->_parentElement = $element;
 		
 		return $this;
 	}
@@ -369,9 +364,9 @@ abstract class Element {
 	 *
 	 * @return	object	Returns the object to allow method chaining
 	 **/
-	public function get_parent()
+	public function getParent()
 	{
-		return $this->_parent_element;
+		return $this->_parentElement;
 	}
 	
 	/**
@@ -386,9 +381,9 @@ abstract class Element {
 	 *
 	 * @return	bool	Returns the object to allow method chaining
 	 **/
-	public function is_self_closing()
+	public function isSelfClosing()
 	{
-		return $this->_self_closing_tag;
+		return $this->_selfClosingTag;
 	}
 
 	/**
@@ -402,22 +397,22 @@ abstract class Element {
 	 *
 	 * @return	mixed	
 	 **/
-	public function find_ancestor($attr)
+	public function findAncestor($attr)
 	{
 		if (is_string($attr))
 		{
 			$attr = array('id'=>$attr);
 		}
 
-		$parent = $this->get_parent();
-		$parent_attr = $parent->get_attributes();
+		$parent = $this->getParent();
+		$parent_attr = $parent->getAttributes();
 
 		if (!is_object($parent) || empty($parent_attr))
 		{
 			return FALSE;
 		}
 
-		return $this->_array_in_array($attr, $parent_attr) ? $parent : $parent->find_ancestor($attr);
+		return $this->_arrayInArray($attr, $parent_attr) ? $parent : $parent->findAncestor($attr);
 	}
 	
 	/**
@@ -425,17 +420,17 @@ abstract class Element {
 	 *
 	 * @return	mixed	
 	 **/
-	public function find_parent($attr)
+	public function findParent($attr)
 	{
 		if (is_string($attr))
 		{
 			$attr = array('id' => $attr);
 		}
 
-		$parent = $this->get_parent();
-		$parent_attr = $parent->get_attributes();
+		$parent = $this->getParent();
+		$parent_attr = $parent->getAttributes();
 
-		if (!is_object($parent) || empty($parent_attr) || !$this->_array_in_array($attr, $parent_attr))
+		if (!is_object($parent) || empty($parent_attr) || !$this->_arrayInArray($attr, $parent_attr))
 		{
 			return FALSE;
 		}
@@ -448,14 +443,14 @@ abstract class Element {
 	 *
 	 * @return	mixed	
 	 **/
-	public function find_child($attr)
+	public function findChild($attr)
 	{
 		if (is_string($attr))
 		{
 			$attr = array('id'=>$attr);
 		}
 
-		$children = $this->get_children();
+		$children = $this->getChildren();
 
 		foreach ($children as $child)
 		{
@@ -464,7 +459,7 @@ abstract class Element {
 				continue;
 			}
 
-			if ($this->_array_in_array($attr, $child->get_attributes()))
+			if ($this->_arrayInArray($attr, $child->getAttributes()))
 			{
 				return $child;
 			}
@@ -478,14 +473,14 @@ abstract class Element {
 	 *
 	 * @return	mixed	
 	 **/
-	public function find_descendant($attr)
+	public function findDescendant($attr)
 	{
 		if (is_string($attr))
 		{
 			$attr = array('id' => $attr);
 		}
 
-		$children = $this->get_children();
+		$children = $this->getChildren();
 
 		foreach ($children as $child)
 		{
@@ -494,13 +489,13 @@ abstract class Element {
 				continue;
 			}
 			
-			if ($this->_array_in_array($attr, $child->get_attributes()))
+			if ($this->_arrayInArray($attr, $child->getAttributes()))
 			{
 				return $child;
 			}
 			else
 			{
-				$result = $child->find_descendant($attr);
+				$result = $child->findDescendant($attr);
 			}
 
 			if (is_a($result, 'Reform\\Element'))
@@ -521,7 +516,7 @@ abstract class Element {
 	 *
 	 * @return	mixed	
 	 **/
-	protected function _array_in_array($array1, $array2)
+	protected function _arrayInArray($array1, $array2)
 	{
 		foreach ($array1 as $key => $value)
 		{
@@ -547,14 +542,14 @@ abstract class Element {
 	 * @param	string	Class name
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function add_class($name)
+	public function addClass($name)
 	{
-		if ($this->class_exists($name))
+		if ($this->classExists($name))
 		{
 			return TRUE;
 		}
 		
-		if (is_array($existing_classes = $this->_class_string_to_array()))
+		if (is_array($existing_classes = $this->_classStringToArray()))
 		{
 			array_push($existing_classes, $name);
 		}
@@ -563,7 +558,7 @@ abstract class Element {
 			$existing_classes = array($name);
 		}
 		
-		$this->set_attribute('class', implode(' ', $existing_classes));
+		$this->setAttribute('class', implode(' ', $existing_classes));
 		
 		return $this;
 	}
@@ -574,9 +569,9 @@ abstract class Element {
 	 * @param	string	class name
 	 * @return	object	Returns the current element (object) to allow method chaining
 	 **/
-	public function remove_class($name)
+	public function removeClass($name)
 	{
-		$existing_classes = $this->_class_string_to_array();
+		$existing_classes = $this->_classStringToArray();
 		
 		foreach ($existing_classes as $key => $class)
 		{
@@ -586,7 +581,7 @@ abstract class Element {
 			}
 		}
 		
-		$this->set_attribute('class', implode(' ', $existing_classes));
+		$this->setAttribute('class', implode(' ', $existing_classes));
 		
 		return $this;
 	}
@@ -596,9 +591,9 @@ abstract class Element {
 	 *
 	 * @return	array	classnames
 	 **/
-	protected function _class_string_to_array()
+	protected function _classStringToArray()
 	{
-		$classes = $this->get_attribute('class');
+		$classes = $this->getAttribute('class');
 		
 		return !empty($classes) ? explode(' ', $classes) : array();
 	}
@@ -609,9 +604,9 @@ abstract class Element {
 	 * @param	string	class name
 	 * @return	bool	true if it exists or false if otherwise
 	 **/
-	public function class_exists($name)
+	public function classExists($name)
 	{
-		$existing_classes = explode(' ', $this->get_attribute('class'));
+		$existing_classes = explode(' ', $this->getAttribute('class'));
 		
 		foreach ($existing_classes as $class)
 		{
