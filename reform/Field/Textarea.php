@@ -87,9 +87,9 @@ class Textarea extends Field {
 	 * inside it we want to prevent such actions 
 	 * by overriding the default methods.
 	 **/
-	public function getChildren() {	return array();	}
-	public function setChild($element, $position = 'bottom') { return $this; }
-	public function hasChildren() { return FALSE; }
-	public function append($elements = array()) { return $this; }
-	public function prepend($elements = array()) { return $this;}
+	//public function getChildren() {	return array();	}
+	//public function setChild($element, $position = 'bottom') { return $this; }
+	//public function hasChildren() { return FALSE; }
+	//public function append($elements = array()) { return $this; }
+	//public function prepend($elements = array()) { return $this;}
 }

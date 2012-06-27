@@ -14,19 +14,13 @@
  * @link       http://johnnyfreeman.github.com/re-form
  */
 
-/**
- * This is the bootstrap file. Simply include this 
- * in your application or website and begin using 
- * our api to create forms easier.
- */
-
 namespace Reform;
 
 use Reform\Element\Fieldset;
 use Reform\Element\Form;
 use Reform\Element\Label;
 use Reform\Element\Legend;
-use Reform\Field\Input;
+use Reform\Field\Input\Input;
 use Reform\Field\Input\Checkbox;
 use Reform\Field\Input\Email;
 use Reform\Field\Input\Password;
@@ -35,16 +29,17 @@ use Reform\Field\Input\Submit;
 use Reform\Field\Select;
 use Reform\Field\Option;
 use Reform\Field\Textarea;
-use Reform\Field\Button; // to be created
+use Reform\Field\Button;
 
 define('REFORM_PATH', realpath(__dir__) . DIRECTORY_SEPARATOR);
 
 /**
  * Reform
  *
- * A façade for making the use of Reform easier.
+ * This is a static interface to make working with 
+ * reform a little easier.
  */
-final class Reform
+class Reform
 {
     private function __construct(){}
     
@@ -74,7 +69,7 @@ final class Reform
      * Input
      *
      * @param   mixed   array of attributes or just the legend (as a string)
-     * @return  Reform\Field\Input    
+     * @return  Reform\Field\Input\Input    
      **/
     public static function input($name, $value = '', $attributes = array())
     {
@@ -209,7 +204,15 @@ final class Reform
 
             // exceptions
             'Reform\\Exception\\ValidationFailedException' => REFORM_PATH.'Exception/ValidationFailedException.php',
+
+            // examples
+            'Reform\\Examples\\ContactForm\\ContactForm' => realpath(__dir__.'/..').'/examples/ContactForm/ContactForm.php',
+            'Reform\\Examples\\ContactForm\\ContactName' => realpath(__dir__.'/..').'/examples/ContactForm/ContactName.php',
+            'Reform\\Examples\\ContactForm\\ContactEmail' => realpath(__dir__.'/..').'/examples/ContactForm/ContactEmail.php',
+            'Reform\\Examples\\ContactForm\\ContactMessage' => realpath(__dir__.'/..').'/examples/ContactForm/ContactMessage.php',
         );
+        
+        //echo '<pre>'; print_r($class_map[$classname]); echo '</pre>';
 
         if (array_key_exists($classname, $class_map) && is_readable($class_map[$classname]))
         {

@@ -288,8 +288,6 @@ abstract class Element {
 		{
 			$elements = array($elements);
 		}
-		
-		$elements = array_reverse($elements, TRUE);
 
 		foreach ($elements as $element) {
 			$this->setChild($element);
