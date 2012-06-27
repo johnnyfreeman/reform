@@ -15,19 +15,6 @@ Reform\Reform::registerAutoloader(); // faster than generic autoloaders
 // load our contact form
 $form = new Reform\Examples\ContactForm\ContactForm();
 
-if (!empty($_POST))
-{
-	if ($form->isValid())
-	{
-		// do something
-		echo 'email sent!';
-	}
-	else
-	{
-		echo 'not valid!!!';
-	}
-}
-
 ?>
 <style>
 	body {
@@ -59,6 +46,13 @@ if (!empty($_POST))
 	.error {
 		background-color: #ffeded;
 		color: #c80000;
+		padding: 5px;
+		margin-top: 5px;
+	}
+
+	.success {
+		background-color: #e9f4d1;
+		color: #000;
 		padding: 5px;
 		margin-top: 5px;
 	}

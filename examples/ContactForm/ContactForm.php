@@ -10,19 +10,18 @@ use Reform\Field\Input\Submit;
 
 class ContactForm extends Form
 {
-	protected $_attributes = array(
-		'action' => '',
-		'id' => 'contact_form',
-		'method' => 'post'
-	);
-
 	protected function _init()
 	{
-		return $this->append(array(
+		$this->append(array(
 			new ContactName(), 
 			new ContactEmail(), 
 			new ContactMessage(), 
 			new Submit('', 'Send Message')
 		));
+
+		if (!empty($_POST) && $this->isValid())
+		{
+			echo '<div class="success">email sent!</div>';
+		}
 	}
 }

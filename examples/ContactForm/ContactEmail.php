@@ -10,17 +10,12 @@ class ContactEmail extends Email
 	{
 		$this->setAttributes(array(
 			'name' => 'email',
-			'id' => 'contact_email_field',
-			'placeholder' => 'Please enter your name.',
+			'id' => 'contact_email',
+			'placeholder' => 'Please enter your email address.',
 		));
 
+		$this->setLabel('Your Email Address:');
+
 		$this->addRule('required');
-
-		if (!empty($_POST) && !$this->isValid())
-		{
-			$this->addClass('error');
-		}
-
-		return $this;
 	}
 }

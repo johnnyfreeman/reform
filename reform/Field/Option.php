@@ -38,7 +38,7 @@ class Option extends Field {
 	 * @param	mixed	array of attributes or just the value (as a string)
 	 * @return	void	
 	 **/
-	public function __construct($label, $attributes = array())
+	public function __construct($label = '', $attributes = array())
 	{
 		$this->setLabel($label);
 
@@ -49,6 +49,8 @@ class Option extends Field {
 		}
 
 		$this->setAttributes($attributes);
+
+		parent::__construct();
 	}
 	
 	/**

@@ -17,6 +17,7 @@
 namespace Reform\Field;
 
 use Reform\Element\Element;
+use Reform\Element\Label;
 use Reform\Exception\ValidationFailedException;
 
 /**
@@ -139,8 +140,7 @@ abstract class Field extends Element
 	/**
 	 * Get Label for this field
 	 *
-	 * @param	mixed	Label as object or string
-	 * @return	object	Returns the current element (object) to allow method chaining
+	 * @return	Reform\Element\Label
 	 **/
 	public function getLabel()
 	{

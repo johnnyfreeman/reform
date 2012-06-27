@@ -14,6 +14,8 @@ class ContactName extends Input
 			'placeholder' => 'Please enter your name.',
 		));
 
+		$this->setLabel('Your Full Name:');
+
 		$this->addRule('required');
 	}
 }

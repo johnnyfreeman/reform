@@ -50,12 +50,12 @@ class Input extends Field {
 			$this->setAttributes($name);
 		}
 
+		parent::__construct();
+
 		// overwrite default value with value from POST array
 		if (!empty($_POST) && isset($_POST[$this->getAttribute('name')]))
 		{
 			$this->setValue($_POST[$this->getAttribute('name')]);
 		}
-
-		parent::__construct();
 	}
 }

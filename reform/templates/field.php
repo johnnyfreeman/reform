@@ -5,6 +5,7 @@ use Reform\Reform;
 // get a few variables
 $name = $this->getAttribute('name');
 $id = $this->getAttribute('id');
+$label = $this->getLabel() == '' ? $name : $this->getLabel();
 
 if (empty($id))
 {
@@ -13,7 +14,7 @@ if (empty($id))
 }
 
 // build field's label
-$output = Reform::label($name)->setAttribute('for', $id);
+$output = Reform::label($label)->setAttribute('for', $id);
 
 // open tag
 $output .= '<' . $this->getTagName();

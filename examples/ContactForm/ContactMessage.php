@@ -7,21 +7,16 @@ use Reform\Exception\ValidationFailedException;
 
 class ContactMessage extends Textarea
 {
-	protected $_attributes = array(
-		'name' => '',
-		'style' => 'width: 400px;height: 150px;'
-	);
-
 	protected function _init()
 	{
-		$this->addRule('required');
+		$this->setAttributes(array(
+			'name' => 'message',
+			'id' => 'contact_message',
+			'placeholder' => 'Say what you need to say.',
+		));
 
-		// if form is submitted and this field isn't valid...
-		if (!empty($_POST) && !$this->isValid())
-		{
-			$this->addClass('error');
-		}
-		
-		return $this;
+		$this->setLabel('Your message:');
+
+		$this->addRule('required');
 	}
 }

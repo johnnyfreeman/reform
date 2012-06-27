@@ -58,6 +58,8 @@ class Select extends Field {
 				$this->setChild(new Option($label, $option_attributes));
 			}
 		}
+
+		parent::__construct();
 		
 		// overwrite default value with value from POST array
 		if (!empty($_POST) && isset($_POST[$this->getAttribute('name')]))
