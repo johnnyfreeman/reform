@@ -37,14 +37,13 @@ class Input extends Field {
 	
 	protected $_selfClosingTag = TRUE;
 	
-	public function __construct($name, $value = '', $attributes = array())
+	public function __construct($name = '', $value = '')
 	{
 		// attributes is a string
 		if (is_string($name))
 		{
 			$this->setAttribute('name', $name);
 			$this->setAttribute('value', $value);
-			$this->setAttributes($attributes);
 		}
 		else if (is_array($name))
 		{
@@ -56,5 +55,7 @@ class Input extends Field {
 		{
 			$this->setValue($_POST[$this->getAttribute('name')]);
 		}
+
+		parent::__construct();
 	}
 }

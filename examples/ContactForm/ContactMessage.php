@@ -12,7 +12,7 @@ class ContactMessage extends Textarea
 		'style' => 'width: 400px;height: 150px;'
 	);
 
-	public function init()
+	protected function _init()
 	{
 		$this->addRule('required');
 

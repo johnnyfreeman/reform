@@ -16,17 +16,13 @@ class ContactForm extends Form
 		'method' => 'post'
 	);
 
-	public function build()
+	protected function _init()
 	{
-		$name = new ContactName('name');
-		$name->build();
-
-		$email = new ContactEmail('email');
-		$email->build();
-
-		$message = new ContactMessage('message');
-		$message->build();
-
-		return $this->append(array($name, $email, $message, new Submit('', 'Send Message')));
+		return $this->append(array(
+			new ContactName(), 
+			new ContactEmail(), 
+			new ContactMessage(), 
+			new Submit('', 'Send Message')
+		));
 	}
 }

@@ -6,16 +6,21 @@ use Reform\Field\Input\Email;
 
 class ContactEmail extends Email
 {
-	protected $_attributes = array(
-		'name' => 'email',
-		'id' => 'contact_email_field',
-		'placeholder' => 'Please enter your name.',
-		'type' => 'text',
-		'value' => ''
-	);
-
-	public function build()
+	protected function _init()
 	{
-		return $this->addRule('required');
+		$this->setAttributes(array(
+			'name' => 'email',
+			'id' => 'contact_email_field',
+			'placeholder' => 'Please enter your name.',
+		));
+
+		$this->addRule('required');
+
+		if (!empty($_POST) && !$this->isValid())
+		{
+			$this->addClass('error');
+		}
+
+		return $this;
 	}
 }

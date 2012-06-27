@@ -13,11 +13,7 @@ require_once('../Reform/Reform.php');
 Reform\Reform::registerAutoloader(); // faster than generic autoloaders
 
 // load our contact form
-//require_once('ContactForm.php');
 $form = new Reform\Examples\ContactForm\ContactForm();
-$form->build();
-
-//echo '<pre>'; print_r($form); echo '</pre>'; die();
 
 if (!empty($_POST))
 {

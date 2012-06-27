@@ -33,7 +33,7 @@ class Textarea extends Field {
 	
 	protected $_selfClosingTag = FALSE;
 	
-	public function __construct($name, $value = '')
+	public function __construct($name = '', $value = '')
 	{
 		if (is_string($name))
 		{
@@ -50,6 +50,8 @@ class Textarea extends Field {
 		{
 			$this->setValue($_POST[$this->getAttribute('name')]);
 		}
+
+		parent::__construct();
 	}
 	
 	/**

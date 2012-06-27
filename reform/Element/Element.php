@@ -59,6 +59,23 @@ abstract class Element {
 	 * @var string
 	 **/
 	protected $_selfClosingTag = FALSE;
+
+	/**
+	 * Element contructor
+	 *
+	 * @access public
+	 **/
+	public function __construct()
+	{
+		$this->_init();
+	}
+
+	/**
+	 * Used in subclasses to setup the element.
+	 *
+	 * @access protected
+	 **/
+	protected function _init(){}
 	
 	/**
 	 * ==================================================

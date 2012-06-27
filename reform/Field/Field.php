@@ -204,6 +204,51 @@ abstract class Field extends Element
 		return count($this->_validationErrors) > 0 ? TRUE : FALSE;
 	}
 
+	/**
+	 * Has the validation already been run?
+	 *
+	 * @var	bool
+	 **/
+	protected $_validationRan = FALSE;
+
+	/**
+	 * Run all validators
+	 *
+	 * @return	Reform\Field\Field
+	 **/
+	public function runValidation()
+	{
+		foreach ($this->getRules() as $rule)
+		{
+			try {
+				$rule->run();
+			}
+			catch (ValidationFailedException $e)
+			{
+				$this->setError($e);
+			}
+		}
+
+		$this->_validationRan = TRUE;
+
+		return $this;
+	}
+	
+	/**
+	 * Checks if this form has any ValidationFailedExceptions
+	 *
+	 * @return	bool
+	 **/
+	public function isValid()
+	{
+		if (!$this->_validationRan)
+		{
+			$this->runValidation();
+		}
+
+		return count($this->getErrors()) === 0;
+	}
+
 
 	/**
 	 * ===========================================

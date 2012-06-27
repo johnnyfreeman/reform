@@ -6,16 +6,14 @@ use Reform\Field\Input\Input;
 
 class ContactName extends Input
 {
-	protected $_attributes = array(
-		'name' => 'name',
-		'id' => 'contact_name',
-		'placeholder' => 'Please enter your name.',
-		'type' => 'text',
-		'value' => ''
-	);
-
-	public function build()
+	protected function _init()
 	{
-		return $this->addRule('required');
+		$this->setAttributes(array(
+			'name' => 'name',
+			'id' => 'contact_name',
+			'placeholder' => 'Please enter your name.',
+		));
+
+		$this->addRule('required');
 	}
 }

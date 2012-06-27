@@ -49,7 +49,7 @@ class Form extends Element {
 			$this->setAttributes($action);
 		}
 		
-		return $this;
+		parent::__construct();
 	}
 
 	/**
@@ -72,16 +72,9 @@ class Form extends Element {
 			// loop through it's rules and run each
 			if (is_a($child_element, 'Reform\\Field\\Field'))
 			{
-				foreach ($child_element->getRules() as $rule)
+				if (!$child_element->isValid())
 				{
-					try {
-						$rule->run();
-					}
-					catch (ValidationFailedException $e)
-					{
-						$child_element->setError($e);
-						$this->_errorCount++;
-					}
+					$this->_errorCount++;
 				}
 			}
 
@@ -110,7 +103,7 @@ class Form extends Element {
 	 **/
 
 	/**
-	 * Number of ValidationFailedExceptions in this form
+	 * Checks if the form has been validated and is valid
 	 *
 	 * @var	int
 	 **/
