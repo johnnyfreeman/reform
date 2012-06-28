@@ -50,48 +50,8 @@ abstract class Field extends Element
 		return $this->_validationRules;
 	}
 
-	// /**
-	//  * To be written.
-	//  *
-	//  * @param	string	Rule name
-	//  * @param	mixed	Callback
-	//  * @return	object	Returns the current element (object) to allow method chaining
-	//  **/
-	// public function addRule($rule, $param1 = NULL, $param2 = NULL)
-	// {
-	// 	// seperate parts by underscore
-	// 	$rule_parts = explode('_', $rule);
-
-	// 	// lowercase all and then capitalize the first charactor
-	// 	$rule_parts = array_map(
-	// 		function($part){
-	// 			return ucfirst(strtolower($part));
-	// 		}, 
-	// 		$rule_parts
-	// 	);
-
-	// 	$rule = implode('', $rule_parts);
-
-	// 	if (class_exists('Reform\\ValidationRule\\' . $rule, TRUE))
-	// 	{
-	// 		$rule = 'Reform\\ValidationRule\\' . $rule;
-			
-	// 		// instantiate new rule with params
-	// 		$rule = new $rule($param1, $param2);
-
-	// 		// encapsulate the field inside 
-	// 		// the rule for easy access
-	// 		$rule->setField($this);
-
-	// 		// save this rule to this field
-	// 		$this->setRule($rule);
-	// 	}
-		
-	// 	return $this;
-	// }
-
 	/**
-	 * To be written.
+	 * Binds a ValidationRule to this field
 	 *
 	 * @param	Reform\ValidationRule\ValidationRule
 	 * @return	Reform\Field\Field
