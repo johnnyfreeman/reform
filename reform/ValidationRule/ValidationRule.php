@@ -94,6 +94,7 @@ abstract class ValidationRule
 	public function setField(Field $field)
 	{
 		$this->_field = $field;
+		$field->addRule($this);
 		
 		return $this;
 	}

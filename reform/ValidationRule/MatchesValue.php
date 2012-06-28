@@ -37,7 +37,7 @@ class MatchesValue extends ValidationRule
 	 **/
 	function __construct($matched_value = '')
 	{
-		$this->set_matched_value($matched_value);
+		$this->setMatchedValue($matched_value);
 		
 		return $this;
 	}

@@ -4,6 +4,7 @@ namespace Reform\Examples\ContactForm;
 
 use Reform\Field\Textarea;
 use Reform\Exception\ValidationFailedException;
+use Reform\ValidationRule\Required;
 
 class ContactMessage extends Textarea
 {
@@ -17,6 +18,6 @@ class ContactMessage extends Textarea
 
 		$this->setLabel('Your message:');
 
-		$this->addRule('required');
+		$this->addRule(new Required());
 	}
 }

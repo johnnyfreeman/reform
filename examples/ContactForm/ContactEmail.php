@@ -3,6 +3,7 @@
 namespace Reform\Examples\ContactForm;
 
 use Reform\Field\Input\Email;
+use Reform\ValidationRule\Required;
 
 class ContactEmail extends Email
 {
@@ -16,6 +17,6 @@ class ContactEmail extends Email
 
 		$this->setLabel('Your Email Address:');
 
-		$this->addRule('required');
+		$this->addRule(new Required());
 	}
 }
