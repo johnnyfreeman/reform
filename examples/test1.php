@@ -9,7 +9,7 @@ ini_set('display_errors', '1');
 /**
  * STRAP ON REFORM
  */
-require_once('reform/reform.php');
+require_once('../Reform/Reform.php');
 
 use Reform\Reform;
 Reform::registerAutoloader(); // faster than generic autoloaders
