@@ -48,7 +48,7 @@ class FormBuilder
      * @param   mixed   array of attributes or just the action (as a string)
      * @return  Reform\Element\Form    
      **/
-    public static function new($attributes='')
+    public static function form($attributes='')
     {
         return new Form($attributes);
     }

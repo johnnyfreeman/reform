@@ -6,17 +6,20 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+
 /**
- * STRAP ON REFORM
+ * Register Reform's class loader
  */
-require_once('../Reform/Reform.php');
-Reform\Reform::registerAutoloader(); // faster than generic autoloaders
+require_once('../Reform/ClassLoader.php');
+Reform\ClassLoader::register(); // faster than generic autoloaders
+
 
 // load our contact form
-$form = new Reform\Examples\ContactForm\ContactForm();
+use Reform\Examples\ContactForm\ContactForm;
+$form = new ContactForm();
 
-?>
-<style>
+
+?><style>
 	body {
 		color: #444;
 		font: 14px Arial;

@@ -7,30 +7,38 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 /**
- * STRAP ON REFORM
+ * Get Reform's class loader
  */
-require_once('../Reform/Reform.php');
+require_once('../Reform/ClassLoader.php');
+Reform\ClassLoader::register(); // faster than generic autoloaders
 
-use Reform\Reform;
-Reform::registerAutoloader(); // faster than generic autoloaders
-
+use Reform\FormBuilder;
+use Reform\ValidationRule\Required;
+use Reform\ValidationRule\MatchesField;
 
 /**
  * EXAMPLE FORM
  */
 
-$form = Reform::form(array('id'=>'my_form'));
+$form = FormBuilder::form('');
 
-Reform::input('name')->addRule('required')->appendTo($form)->setAttribute('id', 'name');
-Reform::email('email')->addRule('required')->appendTo($form);
-$password1 = Reform::password('password1')->addRule('required')->appendTo($form);
-Reform::password('password2')->addRule('matches_field', $password1)->appendTo($form);
-$account_type = Reform::select('account_type')->appendTo($form);
-Reform::option('foo')->appendTo($account_type);
-Reform::option('foo1')->appendTo($account_type);
-Reform::option('bar', 'foo')->appendTo($account_type);
-Reform::option('foo2')->appendTo($account_type);
-Reform::submit('', 'Sign up')->appendTo($form);
+$form->append(array(
+	FormBuilder::input('name'),
+	FormBuilder::email('email'),
+));
+
+//$form = FormBuilder::form(array('id'=>'my_form'));
+
+FormBuilder::input('name')->addRule(new Required)->appendTo($form)->setAttribute('id', 'name');
+FormBuilder::email('email')->addRule(new Required)->appendTo($form);
+$password1 = FormBuilder::password('password1')->addRule(new Required)->appendTo($form);
+FormBuilder::password('password2')->addRule(new MatchesField($password1))->appendTo($form);
+$account_type = FormBuilder::select('account_type')->appendTo($form);
+FormBuilder::option('foo')->appendTo($account_type);
+FormBuilder::option('foo1')->appendTo($account_type);
+FormBuilder::option('bar', 'foo')->appendTo($account_type);
+FormBuilder::option('foo2')->appendTo($account_type);
+FormBuilder::submit('', 'Sign up')->appendTo($form);
 
 //echo '<pre>'; print_r($form); echo '</pre>'; die();
 

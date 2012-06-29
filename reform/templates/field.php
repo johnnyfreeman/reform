@@ -1,6 +1,6 @@
 <?php
 
-use Reform\Reform;
+use Reform\FormBuilder;
 
 // get a few variables
 $name = $this->getAttribute('name');
@@ -14,7 +14,7 @@ if (empty($id))
 }
 
 // build field's label
-$output = Reform::label($label)->setAttribute('for', $id);
+$output = FormBuilder::label($label)->setAttribute('for', $id);
 
 // open tag
 $output .= '<' . $this->getTagName();
