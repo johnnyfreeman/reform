@@ -9,10 +9,10 @@ ini_set('display_errors', '1');
 /**
  * Get Reform's class loader
  */
-require_once('../Reform/ClassLoader.php');
+require_once('../reform/ClassLoader.php');
 Reform\ClassLoader::register(); // faster than generic autoloaders
 
-use Reform\FormBuilder;
+use Reform\Reform;
 use Reform\ValidationRule\Required;
 use Reform\ValidationRule\MatchesField;
 
@@ -20,25 +20,20 @@ use Reform\ValidationRule\MatchesField;
  * EXAMPLE FORM
  */
 
-$form = FormBuilder::form('');
+$form = Reform::form('');
 
-$form->append(array(
-	FormBuilder::input('name'),
-	FormBuilder::email('email'),
-));
+//$form = Reform::form(array('id'=>'my_form'));
 
-//$form = FormBuilder::form(array('id'=>'my_form'));
-
-FormBuilder::input('name')->addRule(new Required)->appendTo($form)->setAttribute('id', 'name');
-FormBuilder::email('email')->addRule(new Required)->appendTo($form);
-$password1 = FormBuilder::password('password1')->addRule(new Required)->appendTo($form);
-FormBuilder::password('password2')->addRule(new MatchesField($password1))->appendTo($form);
-$account_type = FormBuilder::select('account_type')->appendTo($form);
-FormBuilder::option('foo')->appendTo($account_type);
-FormBuilder::option('foo1')->appendTo($account_type);
-FormBuilder::option('bar', 'foo')->appendTo($account_type);
-FormBuilder::option('foo2')->appendTo($account_type);
-FormBuilder::submit('', 'Sign up')->appendTo($form);
+Reform::input('name')->addRule(new Required)->appendTo($form)->setAttribute('id', 'name');
+Reform::email('email')->addRule(new Required)->appendTo($form);
+$password1 = Reform::password('password1')->addRule(new Required)->appendTo($form);
+Reform::password('password2')->addRule(new MatchesField($password1))->appendTo($form);
+$account_type = Reform::select('account_type')->appendTo($form);
+Reform::option('foo')->appendTo($account_type);
+Reform::option('foo1')->appendTo($account_type);
+Reform::option('bar', 'foo')->appendTo($account_type);
+Reform::option('foo2')->appendTo($account_type);
+Reform::submit('', 'Sign up')->appendTo($form);
 
 //echo '<pre>'; print_r($form); echo '</pre>'; die();
 

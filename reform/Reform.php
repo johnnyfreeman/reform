@@ -38,7 +38,7 @@ use Reform\Field\Button;
  * This is a static interface to make working with 
  * reform a little easier.
  */
-class FormBuilder
+class Reform
 {
     public function __construct(){}
     

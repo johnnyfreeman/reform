@@ -35,7 +35,7 @@ abstract class ClassLoader
         static::$_class_map = array(
 
             // tools
-            'Reform\\FormBuilder' => REFORM_PATH.'Formbuilder.php',
+            'Reform\\Reform' => REFORM_PATH.'Reform.php',
 
             // elements
             'Reform\\Element\\Element'  => REFORM_PATH.'Element/Element.php',

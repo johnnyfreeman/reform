@@ -16,8 +16,6 @@ Reform\ClassLoader::register(); // faster than generic autoloaders
 
 // load our contact form
 use Reform\Examples\ContactForm\ContactForm;
-$form = new ContactForm();
-
 
 ?><style>
 	body {
@@ -62,4 +60,4 @@ $form = new ContactForm();
 
 </style>
 
-<?php echo $form; ?> 
+<?php echo new ContactForm(); ?> 
