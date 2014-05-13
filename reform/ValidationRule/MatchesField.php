@@ -11,7 +11,7 @@
  * @author     Johnny Freeman
  * @license    http://www.opensource.org/licenses/mit-license.php
  * @copyright  2011 Johnny Freeman All right reserved.
- * @link       http://johnnyfreeman.github.com/re-form
+ * @link       https://github.com/johnnyfreeman/reform
  */
 
 namespace Reform\ValidationRule;
