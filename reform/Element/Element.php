@@ -651,25 +651,15 @@ abstract class Element {
 
 		// strip namepaces
 		$class = substr($class, strrpos($class, "\\") + 1);
-		$template = REFORM_PATH . 'templates/' . strtolower($class) . '.php';
 
-		if (file_exists($template))
-		{
-			ob_start();
-			include($template);
-			$buffer = ob_get_contents();
-			@ob_end_clean();
-			return $buffer;
-		}
-		else
-		{
-			ob_start();
-			include(REFORM_PATH . 'templates/element.php');
-			$buffer = ob_get_contents();
-			@ob_end_clean();
-			return $buffer;
-		}
+		// template paths
+		$class_template = REFORM_PATH . 'templates/' . strtolower($class) . '.php';
+		$fallback_template = REFORM_PATH . 'templates/element.php';
 
-		
+		ob_start();
+		include(file_exists($class_template) ? $class_template : $fallback_template);
+		$buffer = ob_get_contents();
+		@ob_end_clean();
+		return $buffer;
 	}
 }
