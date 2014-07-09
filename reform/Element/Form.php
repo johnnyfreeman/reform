@@ -123,4 +123,49 @@ class Form extends Element {
 
 		return $this->_errorCount === 0;
 	}
+	
+	/**
+	 * Get for child fields of this form
+	 *
+	 * @return	array	Returns an array of ValidationFailedException objects
+	 **/
+	public function getErrors(Element $element = NULL)
+	{
+		$errors = array();
+
+		// if no element is passed, get all children of this Form Field
+		$children = is_null($element) ? $this->getChildren() : $element->getChildren();
+
+		// loopty loop
+		foreach ($children as $child_element)
+		{
+			// if this childelement is a subclass of the Field object,
+			// loop through it's rules and run each
+			if (is_a($child_element, 'Reform\\Field\\Field'))
+			{
+				$errors = array_merge($errors, $child_element->getErrors());
+			}
+
+			// if this childelement is NOT a subclass of the Field object and it has children,
+			// loop through this whole process with it's children
+			else if (is_a($child_element, 'Reform\\Element\\Element'))
+			{
+				$errors = array_merge($errors, $this->getErrors($child_element));
+			}
+		}
+
+		return $errors;
+	}
+
+	/**
+	 * Check if this field has any errors
+	 *
+	 * @return	boolean	Returns True of False
+	 **/
+	public function hasErrors()
+	{
+		return count($this->getErrors()) > 0 ? TRUE : FALSE;
+	}
 }
+
+

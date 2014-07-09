@@ -37,19 +37,6 @@ Reform::submit('', 'Sign up')->appendTo($form);
 
 //echo '<pre>'; print_r($form); echo '</pre>'; die();
 
-if (!empty($_POST))
-{
-	if ($form->isValid())
-	{
-		// do something
-		echo 'email sent!';
-	}
-	else
-	{
-		echo 'not valid!!!';
-	}
-}
-
 ?>
 <style>
 	body {
