@@ -14,7 +14,7 @@ Reform\ClassLoader::register(); // faster than generic autoloaders
 
 use Reform\Reform;
 use Reform\ValidationRule\Required;
-use Reform\ValidationRule\MatchesField;
+use Reform\ValidationRule\Matches;
 
 /**
  * EXAMPLE FORM
@@ -24,7 +24,7 @@ $form = Reform::form('')->append(array(
 	Reform::input('name')->setAttribute('id', 'name')->addRule(new Required),
 	Reform::email('email')->addRule(new Required),
 	$password1 = Reform::password('password1')->addRule(new Required),
-	Reform::password('password2')->addRule(new MatchesField($password1)),
+	Reform::password('password2')->addRule(new Matches($password1)),
 	Reform::select('account_type')->append(array(
 		Reform::option('foo'),
 		Reform::option('foo1'),

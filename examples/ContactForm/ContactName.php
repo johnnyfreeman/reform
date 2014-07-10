@@ -3,7 +3,7 @@
 namespace Reform\Examples\ContactForm;
 
 use Reform\Field\Input\Input;
-use Reform\ValidationRule\MatchesValue;
+use Reform\ValidationRule\Matches;
 
 class ContactName extends Input
 {
@@ -18,6 +18,6 @@ class ContactName extends Input
 		$this->setLabel('Your Full Name:');
 
 		// make sure it is Johnny
-		$this->addRule(new MatchesValue('Johnny'));
+		$this->addRule(new Matches('Johnny'));
 	}
 }
