@@ -24,11 +24,12 @@ use Reform\Exception\ValidationFailedException;
 class ValidEmail extends ValidationRule
 {
 	/**
-	 * =================
-	 * Validation Logic
-	 * =================
+	 * Error Message
+	 *
+	 * @var string
 	 **/
-	
+	protected $_errorMessage = 'Email not valid.';
+
 	/**
 	 * Run validation check
 	 *
@@ -36,16 +37,13 @@ class ValidEmail extends ValidationRule
 	 **/
 	public function run()
 	{
-		if (!filter_var($this->getField()->getValue(), FILTER_VALIDATE_EMAIL))
-		{
+		$val = $this->getField()->getValue();
+
+		// don't run if field is empty
+		if (empty($val)) return;
+
+		// validate email address
+		if (!filter_var($val, FILTER_VALIDATE_EMAIL))
 			throw new ValidationFailedException($this);
-		}
 	}
-	
-	/**
-	 * Error Message
-	 *
-	 * @var string
-	 **/
-	protected $_errorMessage = 'Email not valid.';
 }
