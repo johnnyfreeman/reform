@@ -16,6 +16,8 @@
 
 namespace Reform\Field\Input;
 
+use Reform\ValidationRule\ValidEmail;
+
 /**
  * Email class
  **/
@@ -28,4 +30,10 @@ class Email extends Input {
 		);
 	
 	protected $_childElements = array();
+	
+	public function __construct($name = '', $value = '')
+	{
+		parent::__construct($name, $value);
+		$this->addRule(new ValidEmail);
+	}
 }
