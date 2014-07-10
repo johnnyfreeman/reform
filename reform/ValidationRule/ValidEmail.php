@@ -28,7 +28,7 @@ class ValidEmail extends ValidationRule
 	 *
 	 * @var string
 	 **/
-	protected $_errorMessage = 'Email not valid.';
+	protected $_errorMessage = 'Email is not valid';
 
 	/**
 	 * Run validation check

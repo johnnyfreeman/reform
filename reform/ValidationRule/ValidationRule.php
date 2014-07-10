@@ -46,7 +46,7 @@ abstract class ValidationRule
 	 *
 	 * @var string
 	 **/
-	protected $_errorMessage = 'This field failed validation.';
+	protected $_errorMessage = 'Field failed validation';
 	
 	/**
 	 * Returns formatted error message with the field's name inserted into the _error_message property.

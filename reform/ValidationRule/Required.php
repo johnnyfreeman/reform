@@ -55,5 +55,5 @@ class Required extends ValidationRule
 	 *
 	 * @var string
 	 **/
-	protected $_errorMessage = 'This field is required.';
+	protected $_errorMessage = 'Field is required';
 }
