@@ -17,27 +17,22 @@
 namespace Reform\ValidationRule;
 
 use Reform\Exception\ValidationFailedException;
+use Reform\Field\Field;
 
 /**
- * MatchesValue rule
+ * Matches rule
  */
-class MatchesValue extends ValidationRule
+class Matches extends ValidationRule
 {
 	/**
-	 * =================
-	 * Validation Logic
-	 * =================
-	 **/
-
-	/**
-	 * Class constructor
+	 * Constructor
 	 *
 	 * @param	string	Value to be matched against
 	 * @return	object	MatchesValue
 	 **/
-	function __construct($matched_value = '')
+	function __construct($match)
 	{
-		$this->setMatchedValue($matched_value);
+		$this->_match = $match;
 		
 		return $this;
 	}
@@ -54,19 +49,13 @@ class MatchesValue extends ValidationRule
 			throw new ValidationFailedException($this);
 		}
 	}
-
-	/**
-	 * ==============
-	 * Error Message
-	 * ==============
-	 **/
 	
 	/**
 	 * Error Message
 	 *
 	 * @var string
 	 **/
-	protected $_errorMessage = 'The %s field must be equal to "%s".';
+	protected $_errorMessage = 'Value doesn\'t match `%s`';
 	
 	/**
 	 * Gets the error message above and 
@@ -77,43 +66,17 @@ class MatchesValue extends ValidationRule
 	 **/
 	public function getErrorMessage()
 	{
-		return sprintf($this->_errorMessage, $this->getField()->getAttribute('name'), $this->getMatchedValue());
-	}
-
-	/**
-	 * ==============
-	 * Matched Value
-	 * ==============
-	 **/
-
-	/**
-	 * Some Value for the field 
-	 * to be matched up against
-	 *
-	 * @var string
-	 **/
-	protected $_matchedValue;
-
-	/**
-	 * Gets the value the will be used to validate the field with
-	 *
-	 * @param	string
-	 * @return	string	_matched_value property
-	 **/
-	public function setMatchedValue($value)
-	{
-		$this->_matchedValue = $value;
-		
-		return $this;
+		return sprintf($this->_errorMessage, $this->getMatchedValue());
 	}
 	
 	/**
-	 * Sets the value the will be used to validate the field with
+	 * Gets the value the will be used 
+	 * to validate the field with
 	 *
-	 * @return	string	_matched_value property
+	 * @var string
 	 **/
 	public function getMatchedValue()
 	{
-		return $this->_matchedValue;
+		return $this->_match instanceof Field ? $this->_match->getAttribute('name') : $this->_match;
 	}
 }
