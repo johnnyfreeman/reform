@@ -42,14 +42,14 @@ class Select extends Field {
 		if (is_string($attributes))
 		{
 			// assume name attribute
-			$attributes = array('name', $attributes);
+			$attributes = array('name' => $attributes);
 		}
 		
 		$this->setAttributes($attributes);
 
 		foreach ($options as $label => $option_attributes)
 		{
-			if (is_a($attributes, 'Reform\\Field\\Option'))
+			if ($option_attributes instanceof Option)
 			{
 				$this->setChild($option_attributes);
 			}
@@ -67,12 +67,6 @@ class Select extends Field {
 			$this->setValue($_POST[$this->getAttribute('name')]);
 		}
 	}
-	
-	/**
-	 * ==============================================
-	 * Methods for getting / setting select values
-	 * ==============================================
-	 **/
 
 	/**
 	 * Set field value
@@ -84,9 +78,10 @@ class Select extends Field {
 	{
 		foreach ($this->getChildren() as $element)
 		{
-			if (is_a($element, 'Reform\\Field\\Option') && $element->getValue() === $new_value)
+			if ($element instanceof Option && $element->getValue() === $new_value)
 			{
 				$this->selectOption($element);
+				return $this;
 			}
 		}
 		
@@ -102,14 +97,8 @@ class Select extends Field {
 	{
 		$selected_option = $this->getSelectedOption();
 
-		return is_a($selected_option, 'Reform\\Field\\Option') ? $selected_option->getValue() : '';
+		return $selected_option instanceof Option ? $selected_option->getValue() : '';
 	}
-
-	/**
-	 * ==================================================
-	 * Methods for getting / setting the selected option
-	 * ==================================================
-	 **/
 	
 	/**
 	 * Store reference to the selected Option
@@ -139,7 +128,7 @@ class Select extends Field {
 	 **/
 	public function deselectSelectedOption()
 	{
-		if (is_a($this->_selectedOption, 'Reform\\Field\\Option'))
+		if ($this->_selectedOption instanceof Option)
 		{
 			$this->_selectedOption->removeAttribute('selected');
 			$this->_selectedOption = NULL;

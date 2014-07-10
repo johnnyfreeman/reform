@@ -25,10 +25,10 @@ $form = Reform::form('')->append(array(
 	Reform::email('email')->addRule(new Required),
 	$password1 = Reform::password('password1')->addRule(new Required),
 	Reform::password('password2')->addRule(new Matches($password1)),
-	Reform::select('account_type')->append(array(
+	Reform::select('account_type', array(
 		Reform::option('foo'),
 		Reform::option('foo1'),
-		Reform::option('bar', 'foo'),
+		Reform::option('Bar', '1'),
 		Reform::option('foo2'),
 	)),
 	Reform::submit('', 'Sign up')

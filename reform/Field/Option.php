@@ -45,7 +45,7 @@ class Option extends Field {
 		if (is_string($attributes))
 		{
 			// assume value attribute
-			$attributes = array('value', $attributes);
+			$attributes = array('value' => $attributes);
 		}
 
 		$this->setAttributes($attributes);
