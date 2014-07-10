@@ -71,7 +71,7 @@ abstract class ClassLoader
             'Reform\\Examples\\ContactForm\\ContactForm' => realpath(__dir__.'/..').'/examples/ContactForm/ContactForm.php',
             'Reform\\Examples\\ContactForm\\ContactName' => realpath(__dir__.'/..').'/examples/ContactForm/ContactName.php',
             'Reform\\Examples\\ContactForm\\ContactEmail' => realpath(__dir__.'/..').'/examples/ContactForm/ContactEmail.php',
-            'Reform\\Examples\\ContactForm\\ContactMessage' => realpath(__dir__.'/..').'/examples/ContactForm/ContactMessage.php',
+            'Reform\\Examples\\ContactForm\\ContactMessage' => realpath(__dir__.'/..').'/examples/ContactForm/ContactMessage.php'
         
         );
 
