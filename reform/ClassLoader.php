@@ -58,11 +58,10 @@ abstract class ClassLoader
             'Reform\\Field\\Textarea'           => REFORM_PATH.'Field/Textarea.php',
 
             // validation rules
+            'Reform\\ValidationRule\\Matches'           => REFORM_PATH.'ValidationRule/Matches.php',
+            'Reform\\ValidationRule\\Required'          => REFORM_PATH.'ValidationRule/Required.php',
             'Reform\\ValidationRule\\ValidationRule'    => REFORM_PATH.'ValidationRule/ValidationRule.php',
             'Reform\\ValidationRule\\ValidEmail'        => REFORM_PATH.'ValidationRule/ValidEmail.php',
-            'Reform\\ValidationRule\\MatchesField'      => REFORM_PATH.'ValidationRule/MatchesField.php',
-            'Reform\\ValidationRule\\MatchesValue'      => REFORM_PATH.'ValidationRule/MatchesValue.php',
-            'Reform\\ValidationRule\\Required'          => REFORM_PATH.'ValidationRule/Required.php',
 
             // exceptions
             'Reform\\Exception\\ValidationFailedException' => REFORM_PATH.'Exception/ValidationFailedException.php',
