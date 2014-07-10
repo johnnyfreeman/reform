@@ -34,8 +34,9 @@ $form = Reform::form('')->append(array(
 	Reform::submit('', 'Sign up')
 ));
 
-//$form = Reform::form(array('id'=>'my_form'));
 
+// run validation
+!empty($_POST) && $form->runValidation();
 
 //echo '<pre>'; print_r($form); echo '</pre>'; die();
 
@@ -67,10 +68,16 @@ $form = Reform::form('')->append(array(
 	    width: 100%;
 	}
 
+	.errors {
+		list-style: none;
+		margin-top: 0;
+		padding: 0;
+	}
+
 	.error {
 		background-color: #ffeded;
 		color: #c80000;
-		padding: 5px;
+		padding: 10px;
 		margin-top: 5px;
 	}
 

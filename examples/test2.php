@@ -11,7 +11,7 @@ ini_set('display_errors', '1');
  * Register Reform's class loader
  */
 require_once('../Reform/ClassLoader.php');
-Reform\ClassLoader::register(); // faster than generic autoloaders
+Reform\ClassLoader::register();
 
 
 // load our contact form
@@ -44,17 +44,16 @@ use Reform\Examples\ContactForm\ContactForm;
 	    width: 100%;
 	}
 
+	.errors {
+		list-style: none;
+		margin-top: 0;
+		padding: 0;
+	}
+
 	.error {
 		background-color: #ffeded;
 		color: #c80000;
-		padding: 5px;
-		margin-top: 5px;
-	}
-
-	.success {
-		background-color: #e9f4d1;
-		color: #000;
-		padding: 5px;
+		padding: 10px;
 		margin-top: 5px;
 	}
 
