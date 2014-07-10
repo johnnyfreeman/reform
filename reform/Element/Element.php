@@ -189,7 +189,7 @@ abstract class Element {
 	 * @param	array	Name => value pairs
 	 * @return	object	Returns the object to allow method chaining
 	 **/
-	public function setAttributes($attributes = array())
+	public function setAttributes(Array $attributes = array())
 	{
 		foreach ($attributes as $name => $value)
 		{

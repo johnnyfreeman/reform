@@ -38,11 +38,10 @@ class Select extends Field {
 	
 	public function __construct($attributes = array(), $options = array())
 	{
-		// attributes is a string
-		if (is_string($attributes))
+		// assume name attribute
+		if (!is_array($attributes))
 		{
-			// assume name attribute
-			$attributes = array('name' => $attributes);
+			$attributes = array('name' => (string) $attributes);
 		}
 		
 		$this->setAttributes($attributes);

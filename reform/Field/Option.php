@@ -42,10 +42,10 @@ class Option extends Field {
 	{
 		$this->setLabel($label);
 
-		if (is_string($attributes))
+		// assume value attribute
+		if (!is_array($attributes))
 		{
-			// assume value attribute
-			$attributes = array('value' => $attributes);
+			$attributes = array('value' => (string) $attributes);
 		}
 
 		$this->setAttributes($attributes);

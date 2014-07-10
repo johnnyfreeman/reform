@@ -26,10 +26,10 @@ $form = Reform::form('')->append(array(
 	$password1 = Reform::password('password1')->addRule(new Required),
 	Reform::password('password2')->addRule(new Matches($password1)),
 	Reform::select('account_type', array(
-		Reform::option('foo'),
-		Reform::option('foo1'),
-		Reform::option('Bar', '1'),
-		Reform::option('foo2'),
+		Reform::option('Tier 1', 1),
+		Reform::option('Tier 2', 2),
+		Reform::option('Tier 3', 3),
+		Reform::option('Tier 4', 4),
 	)),
 	Reform::submit('', 'Sign up')
 ));
