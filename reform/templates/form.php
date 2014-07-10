@@ -2,7 +2,7 @@
 <!-- error messages -->
 <ul class="messeges">
 	<?php foreach ($this->getErrors() as $error): ?>
-		<li class="error message"><? echo $error; ?></li>
+		<li class="error message"><?php echo $error; ?></li>
 	<?php endforeach; ?>
 </ul>
 <?php endif; ?>
