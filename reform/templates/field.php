@@ -48,8 +48,10 @@ else
 	echo $output;
 }
 
-// check for errors
-if ($this->hasErrors())
-{
-	echo '<div class="error">' . $this->getError() . '</div>';
-}
+if ($this->hasErrors()): ?>
+<ul class="errors">
+	<?php foreach ($this->getErrors() as $error): ?>
+		<li class="error"><?php echo $error; ?></li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>
