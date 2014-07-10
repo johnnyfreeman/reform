@@ -51,7 +51,7 @@ class MatchesValue extends ValidationRule
 	{
 		if ($this->getField()->getValue() !== $this->getMatchedValue())
 		{
-			throw new ValidationFailedException($this->getErrorMessage());
+			throw new ValidationFailedException($this);
 		}
 	}
 

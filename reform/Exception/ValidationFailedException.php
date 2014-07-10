@@ -17,6 +17,7 @@
 namespace Reform\Exception;
 
 use Exception;
+use Reform\ValidationRule\ValidationRule;
 
 /**
  * ValidationFailedException
@@ -26,26 +27,17 @@ use Exception;
 class ValidationFailedException extends Exception
 {
 	/**
-	 * Error Message
-	 *
-	 * @var string
-	 **/
-	protected $message;
-
-	/**
-	 * Line Number
-	 *
-	 * @var int
-	 **/
-	protected $line;
-
-	/**
-	 * File path
-	 *
-	 * @var string
-	 **/
-	protected $file;
-
+	 * Overiride Exception constructor
+	 * 
+	 * @access	public
+	 * @return	string
+	 */
+	public function __construct(ValidationRule $rule)
+	{
+		$this->rule = $rule;
+		parent::__construct($rule->getErrorMessage());
+	}
+	
 	/**
 	 * Returns error message when ValidationFailedException object is cast as a string
 	 * 
@@ -54,6 +46,6 @@ class ValidationFailedException extends Exception
 	 */
 	public function __toString()
 	{
-		return $this->message;
+		return $this->getMessage();
 	}
 }

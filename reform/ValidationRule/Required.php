@@ -40,7 +40,7 @@ class Required extends ValidationRule
 
 		if (empty($field_value))
 		{
-			throw new ValidationFailedException($this->getErrorMessage());
+			throw new ValidationFailedException($this);
 		}
 	}
 
