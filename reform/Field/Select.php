@@ -36,7 +36,7 @@ class Select extends Field {
 	
 	protected $_selfClosingTag = FALSE;
 	
-	public function __construct($attributes = array(), $options = array())
+	public function __construct($attributes = array(), Array $options = array())
 	{
 		// assume name attribute
 		if (!is_array($attributes))
@@ -46,6 +46,7 @@ class Select extends Field {
 		
 		$this->setAttributes($attributes);
 
+		// setup Options
 		foreach ($options as $label => $option_attributes)
 		{
 			if ($option_attributes instanceof Option)
@@ -59,12 +60,32 @@ class Select extends Field {
 		}
 
 		parent::__construct();
-		
+	}
+
+	/**
+	 * Set Child Element
+	 *
+	 * @param	mixed	child element (object) or text node (string)
+	 * @param	string	Whether to position the new child before or after existing children
+	 * @return	object	Returns the current element (object) to allow method chaining
+	 **/
+	public function setChild($element, $position = 'bottom')
+	{
+		// you can't nest non-Option
+		if (!($element instanceof Option))
+		{
+			throw new InvalidArgumentException('You cannot set anything other than Option as the child of Select.');
+		}
+
+		parent::setChild($element, $position);
+
 		// overwrite default value with value from POST array
 		if (!empty($_POST) && isset($_POST[$this->getAttribute('name')]))
 		{
 			$this->setValue($_POST[$this->getAttribute('name')]);
 		}
+
+		return $this;
 	}
 
 	/**
@@ -131,7 +152,7 @@ class Select extends Field {
 		{
 			$this->_selectedOption->removeAttribute('selected');
 		}
-		
+
 		$this->_selectedOption = NULL;
 
 		return $this;
