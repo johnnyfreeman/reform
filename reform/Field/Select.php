@@ -127,7 +127,11 @@ class Select extends Field {
 	 **/
 	public function deselectOption()
 	{
-		$this->_selectedOption->removeAttribute('selected');
+		if ($this->getSelectedOption() instanceof Option)
+		{
+			$this->_selectedOption->removeAttribute('selected');
+		}
+		
 		$this->_selectedOption = NULL;
 
 		return $this;
