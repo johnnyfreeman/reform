@@ -66,7 +66,18 @@ class Matches extends ValidationRule
 	 **/
 	public function getErrorMessage()
 	{
-		return sprintf($this->_errorMessage, $this->getMatchedValue());
+		return sprintf($this->_errorMessage, $this->getMatchedDisplayValue());
+	}
+	
+	/**
+	 * Gets the value the will be used 
+	 * to validate the field with
+	 *
+	 * @var string
+	 **/
+	public function getMatchedDisplayValue()
+	{
+		return $this->_match instanceof Field ? $this->_match->getAttribute('name') : $this->_match;
 	}
 	
 	/**
@@ -77,6 +88,6 @@ class Matches extends ValidationRule
 	 **/
 	public function getMatchedValue()
 	{
-		return $this->_match instanceof Field ? $this->_match->getAttribute('name') : $this->_match;
+		return $this->_match instanceof Field ? $this->_match->getValue() : $this->_match;
 	}
 }
