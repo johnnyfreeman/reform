@@ -80,7 +80,7 @@ class Select extends Field {
 			if ($element instanceof Option && $element->getValue() === $new_value)
 			{
 				$this->selectOption($element);
-				return $this;
+				break;
 			}
 		}
 		
@@ -113,7 +113,7 @@ class Select extends Field {
 	 **/
 	public function selectOption(Option $option)
 	{
-		$this->deselectSelectedOption();
+		$this->deselectOption();
 		$option->setAttribute('selected', 'selected');
 		$this->_selectedOption = $option;
 
@@ -125,13 +125,10 @@ class Select extends Field {
 	 *
 	 * @return	Reform\Field\Select
 	 **/
-	public function deselectSelectedOption()
+	public function deselectOption()
 	{
-		if ($this->_selectedOption instanceof Option)
-		{
-			$this->_selectedOption->removeAttribute('selected');
-			$this->_selectedOption = NULL;
-		}
+		$this->_selectedOption->removeAttribute('selected');
+		$this->_selectedOption = NULL;
 
 		return $this;
 	}
@@ -143,6 +140,6 @@ class Select extends Field {
 	 **/
 	public function getSelectedOption()
 	{
-		return $this->_selectedOption;
+		return $this->_selectedOption instanceof Option ? $this->_selectedOption : NULL;
 	}
 }
