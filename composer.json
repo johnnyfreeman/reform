@@ -1,0 +1,23 @@
+{
+    "name": "johnnyfreeman/reform",
+    "type": "library",
+    "description": "Reform is an elegant and lightweight group of objects to help you create dynamic forms easier. ",
+    "keywords": ["form","forms"],
+    "homepage": "https://github.com/johnnyfreeman/reform",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Johnny Freeman",
+            "homepage": "http://jhnfrmn.co",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "Reform": "src"
+        }
+    }
+}
