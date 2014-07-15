@@ -108,7 +108,7 @@ class Reform
      * @param   mixed   array of attributes or just the legend (as a string)
      * @return  Reform\Field\Select 
      **/
-    public static function select($attributes = array(), $options = array())
+    public static function select($attributes = array(), Array $options = array())
     {
         return new \Reform\Element\Select($attributes, $options);
     }
@@ -119,9 +119,9 @@ class Reform
      * @param   mixed   array of attributes or just the legend (as a string)
      * @return  Reform\Field\Textarea 
      **/
-    public static function textarea($name, $value = '', $attributes = array())
+    public static function textarea($attributes)
     {
-        return new \Reform\Element\Textarea($name, $value, $attributes);
+        return new \Reform\Element\Textarea($attributes);
     }
     
     /**

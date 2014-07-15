@@ -34,17 +34,13 @@ class Textarea extends Field {
 	
 	protected $_selfClosingTag = FALSE;
 	
-	public function __construct($name = '', $value = '')
+	public function __construct($attributes)
 	{
-		if (is_string($name))
-		{
-			$this->setAttribute('name', $name);
-			$this->setValue($value);
+		if (!is_array(attributes)) {
+			$attributes = array('name' => (string) $attributes);
 		}
-		else if (is_array($name))
-		{
-			$this->setAttributes($name);
-		}
+
+		$this->setAttributes($attributes);
 
 		parent::__construct();
 
