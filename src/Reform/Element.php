@@ -650,8 +650,8 @@ abstract class Element {
 		$class = substr($class, strrpos($class, "\\") + 1);
 
 		// template paths
-		$class_template = REFORM_PATH . 'templates/' . strtolower($class) . '.php';
-		$fallback_template = REFORM_PATH . 'templates/element.php';
+		$class_template = realpath(__dir__) . '/templates/' . strtolower($class) . '.php';
+		$fallback_template = realpath(__dir__) . '/templates/element.php';
 
 		ob_start();
 		include(file_exists($class_template) ? $class_template : $fallback_template);

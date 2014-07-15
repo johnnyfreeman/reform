@@ -254,7 +254,7 @@ abstract class Field extends Element
 
 		// strip namepaces
 		$class = substr($class, strrpos($class, "\\") + 1);
-		$template = REFORM_PATH . 'templates/' . strtolower($class) . '.php';
+		$template = realpath(__dir__) . '/templates/' . strtolower($class) . '.php';
 
 		ob_start();
 
@@ -264,7 +264,7 @@ abstract class Field extends Element
 		}
 		else
 		{
-			include(REFORM_PATH . 'templates/field.php');
+			include(realpath(__dir__) . '/templates/field.php');
 		}
 
 		$buffer = ob_get_contents();
