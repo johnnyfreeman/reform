@@ -37,18 +37,14 @@ class Form extends Element {
 	
 	protected $_selfClosingTag = FALSE;
 	
-	public function __construct($action = '')
+	public function __construct($attributes = '')
 	{
-		if (is_string($action))
+		if (!is_array($attributes))
 		{
-			$this->setAttribute('action', $action);
+			$attributes = array('action' => (string) $attributes);
 		}
-		// if $action is an array, assume 
-		// it's an array of attributes
-		else if (is_array($action))
-		{
-			$this->setAttributes($action);
-		}
+		
+		$this->setAttributes($action);
 		
 		parent::__construct();
 	}

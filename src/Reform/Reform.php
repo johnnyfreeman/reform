@@ -31,7 +31,7 @@ class Reform
      * @param   mixed   array of attributes or just the action (as a string)
      * @return  Reform\Element\Form    
      **/
-    public static function form($attributes='')
+    public static function form($attributes = '')
     {
         return new \Reform\Element\Form($attributes);
     }
