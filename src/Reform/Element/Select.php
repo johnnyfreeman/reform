@@ -46,16 +46,13 @@ class Select extends Field {
 		$this->setAttributes($attributes);
 
 		// setup Options
-		foreach ($options as $label => $option_attributes)
+		foreach ($options as $value => $option)
 		{
-			if ($option_attributes instanceof Option)
-			{
-				$this->setChild($option_attributes);
+			if (!($option instanceof Option)) {
+				$option = new Option($option);
 			}
-			else
-			{
-				$this->setChild(new Option($label, $option_attributes));
-			}
+			
+			$this->setChild($option);
 		}
 
 		parent::__construct();

@@ -39,14 +39,17 @@ class Option extends Field {
 	 * @param	mixed	array of attributes or just the value (as a string)
 	 * @return	void	
 	 **/
-	public function __construct($label = '', $attributes = array())
+	public function __construct($attributes = array())
 	{
-		$this->setLabel($label);
-
-		// assume value attribute
 		if (!is_array($attributes))
 		{
-			$attributes = array('value' => (string) $attributes);
+			$attributes = array('label' => $attributes);
+		}
+		
+		if (array_key_exists('label', $attributes))
+		{
+			$this->setLabel($attributes['label']);
+			unset($attributes['label']);
 		}
 
 		$this->setAttributes($attributes);

@@ -15,6 +15,8 @@
 
 namespace Reform;
 
+use BadMethodCallException;
+
 /**
  * Form Builder
  *
@@ -22,9 +24,7 @@ namespace Reform;
  * reform a little easier.
  */
 class Reform
-{
-    public function __construct(){}
-    
+{   
     /**
      * Form
      *
@@ -53,75 +53,53 @@ class Reform
      * @param   mixed   array of attributes or just the legend (as a string)
      * @return  mixed   Reform\Element\Input\Text or type-specific class
      **/
-    public static function input($attributes)
+    public static function input(Array $attributes)
     {
-        // accept string as name attribute
-        if (!is_array($attributes)) {
-            $attributes = array('name'=>$attributes);
+        // fallback to Text class
+        if (!isset($attributes['type']) || !in_array($attributes['type'], static::$inputTypes)) {
+            $attributes['type'] = 'text';
         }
-
-        // default class
-        $class = '\\Reform\\Element\\Input\\Text';
 
         // build derived classname from field type
-        if (isset($attributes['type'])) {
-            $derivedClass = '\\Reform\\Element\\Input\\' . ucfirst(strtolower($attributes['type']));
-            if (class_exists($derivedClass)) {
-                $class = $derivedClass;
-            }
-        }
+        $class = '\\Reform\\Element\\Input\\' . ucfirst(strtolower($attributes['type']));
 
         return new $class($attributes);
     }
 
-    public static function email($attributes)
+    public static $inputTypes = array('text', 'email', 'hidden', 'password', 'radio', 'submit');
+
+    /**
+     * Input methods
+     *
+     * @param   mixed   array of attributes or just the legend (as a string)
+     * @return  mixed   Reform\Element\Input\Text or type-specific class
+     **/
+    public static function __callStatic($name, $arguments)
     {
-        // accept string as name attribute
-        if (!is_array($attributes)) {
-            $attributes = array('name'=>$attributes);
+        if (!in_array($name, static::$inputTypes)) {
+            throw new BadMethodCallException;
         }
 
-        return static::input(array_merge(array('type'=>'email'), $attributes));
-    }
+        // get first argument
+        $attributes = $arguments[0];
 
-    public static function hidden($attributes)
-    {
-        // accept string as name attribute
+        // set non-array type as a sensable attribute
         if (!is_array($attributes)) {
-            $attributes = array('name'=>$attributes);
+            switch ($name) {
+                case 'submit':
+                    $attributes = array('value' => (string) $attributes);
+                    break;
+                
+                default:
+                    $attributes = array('name' => (string) $attributes);
+                    break;
+            }
         }
-        
-        return static::input(array_merge(array('type'=>'hidden'), $attributes));
-    }
 
-    public static function password($attributes)
-    {
-        // accept string as name attribute
-        if (!is_array($attributes)) {
-            $attributes = array('name'=>$attributes);
-        }
-        
-        return static::input(array_merge(array('type'=>'password'), $attributes));
-    }
+        // set input type
+        $attributes = array_merge(array('type'=>$name), $attributes);
 
-    public static function radio($attributes)
-    {
-        // accept string as name attribute
-        if (!is_array($attributes)) {
-            $attributes = array('name'=>$attributes);
-        }
-        
-        return static::input(array_merge(array('type'=>'radio'), $attributes));
-    }
-
-    public static function submit($attributes)
-    {
-        // accept string as value attribute
-        if (!is_array($attributes)) {
-            $attributes = array('value'=>$attributes);
-        }
-        
-        return static::input(array_merge(array('type'=>'submit'), $attributes));
+        return static::input($attributes);
     }
     
     /**
