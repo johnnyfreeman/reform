@@ -32,27 +32,26 @@ class Fieldset extends Element {
 	
 	protected $_selfClosingTag = FALSE;
 	
-	public function __construct($attributes = array())
+	public function __construct($attributes = '')
 	{
-		if (is_string($legend = $attributes))
-		{
-			if (!empty($legend))
-			{
-				$this->setChild(new Legend($legend));
-			}
+		// assume non-array is legend
+		if (!is_array($attributes)) {
+			$attributes = array('legend' => $attributes);
 		}
-		else if (is_array($attributes))
-		{
-			if (array_key_exists('legend', $attributes))
-			{
-				$this->setChild(new Legend($attributes['legend']));
-				
-				unset($attributes['legend']);
+
+		// handle legend
+		if (array_key_exists('legend', $attributes)) {
+			if (!($attributes['legend'] instanceof Legend)) {
+				$attributes['legend'] = new Legend($attributes['legend']);
 			}
 			
-			$this->setAttributes($attributes);
+			$this->setChild($attributes['legend']);
+			unset($attributes['legend']);
 		}
+
+		// set all attributes
+		$this->setAttributes($attributes);
 		
-		return $this;
+		parent::__construct();
 	}
 }

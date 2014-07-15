@@ -42,7 +42,7 @@ class Reform
      * @param   mixed   array of attributes or just the legend (as a string)
      * @return  Reform\Element\Fieldset    
      **/
-    public static function fieldset($attributes='')
+    public static function fieldset($attributes = '')
     {
         return new \Reform\Element\Fieldset($attributes);
     }
