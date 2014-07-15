@@ -44,7 +44,7 @@ class Form extends Element {
 			$attributes = array('action' => (string) $attributes);
 		}
 		
-		$this->setAttributes($action);
+		$this->setAttributes($attributes);
 		
 		parent::__construct();
 	}
